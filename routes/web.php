@@ -33,10 +33,13 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 
 
+Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
+// Route::get('/admindashboard', [AdminController::class, 'index'])->name('admindashboard')->middleware('auth');
+Route::post('/Admin.admindashboard',[AdminController::class,'addadmin'])->name('admin.addadmin');
 
-Route::group(['middleware' => ['auth:admin']], function() {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/admin/product/edit/{id}', [AdminController::class, 'editProduct'])->name('admin.editProduct');
-    Route::post('/admin/product/update/{id}', [AdminController::class, 'updateProduct'])->name('admin.updateProduct');
-    Route::post('/admin/site/update', [AdminController::class, 'updateSiteInfo'])->name('admin.updateSiteInfo');
-});
+// Route::group(['middleware' => ['auth:admin']], function() {
+//     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+//     Route::get('/admin/product/edit/{id}', [AdminController::class, 'editProduct'])->name('admin.editProduct');
+//     Route::post('/admin/product/update/{id}', [AdminController::class, 'updateProduct'])->name('admin.updateProduct');
+//     Route::post('/admin/site/update', [AdminController::class, 'updateSiteInfo'])->name('admin.updateSiteInfo');
+// });

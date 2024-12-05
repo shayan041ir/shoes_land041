@@ -12,16 +12,35 @@ use App\Http\Middleware;
 class AdminController extends Controller
 {
     // فقط ادمین‌ها می‌توانند به این متدها دسترسی داشته باشند
-    public function __construct()
-    {
-        $this->middleware('auth:admin');  // فرض می‌کنیم سیستم احراز هویت جداگانه برای ادمین‌ها دارید
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:admin');  // فرض می‌کنیم سیستم احراز هویت جداگانه برای ادمین‌ها دارید
+    // }
 
     // نمایش صفحه داشبورد ادمین
-    public function dashboard()
+    public function index()
     {
-        return view('admin.dashboard');
+        return view('Admin.admindashboard');
     }
+
+
+    public function addadmin(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:admins,email',
+            'password' => 'required',
+        ]);
+        Admin::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+        $s = "admin added";
+        return redirect()->route('admindashboard')->with('s', 'Admin added successfully!');
+    }
+
+
 
     // تغییرات محصول
     public function editProduct($id)
