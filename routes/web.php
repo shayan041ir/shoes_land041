@@ -41,8 +41,8 @@ Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name
 
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
 
-Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
 Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
 
 
 

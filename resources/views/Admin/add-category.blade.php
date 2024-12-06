@@ -1,7 +1,7 @@
-<pre>{{ print_r($categories) }}</pre>
+{{-- <pre>@php print_r($categories->toArray()); @endphp</pre> --}}
 
-<div class="categorys">
-    <h1>categorys</h1>
+<div class="categories">
+    <h1>Categories</h1>
     @if ($categories->isEmpty())
         <p>No categories available.</p>
     @else
@@ -11,8 +11,8 @@
             @endforeach
         </ul>
     @endif
-
 </div>
+
 
 <div class="add-category">
     <h1>Add New Category</h1>
