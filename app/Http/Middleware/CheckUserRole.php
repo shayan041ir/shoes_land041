@@ -9,21 +9,24 @@ use Illuminate\Http\Request;
 
 class CheckUserRole
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
-     */
     public function handle(Request $request, Closure $next)
     {
-        if ($role === 'admin' && Auth::guard('admin')->check()) {
+        if (auth()->guard('admin')->check()) {
             return $next($request);
+        } elseif (auth()->guard('user')->check()) {
+            return $next($request);
+        } else {
+            return redirect('/login');
         }
 
-        if ($role === 'user' && Auth::guard('web')->check()) {
-            return $next($request);
-        }
+        // if ($role === 'admin' && Auth::guard('admin')->check()) {
+        //     return $next($request);
+        // }
 
-        return redirect('/home');
+        // if ($role === 'user' && Auth::guard('web')->check()) {
+        //     return $next($request);
+        // }
+
+        // return redirect('/home');
     }
 }

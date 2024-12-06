@@ -40,5 +40,5 @@ Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('pr
 Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
 
-Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard');
+Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard')->middleware('CheckUserRole');
 

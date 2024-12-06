@@ -13,7 +13,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         // چک کردن Maintenance Mode
         // \App\Http\Middleware\CheckForMaintenanceMode::class,
-    'role' => \App\Http\Middleware\CheckRole::class,
+        //  'role' => \App\Http\Middleware\CheckRole::class,
         // کنترل اندازه درخواست
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
 
@@ -59,6 +59,6 @@ class Kernel extends HttpKernel
         // 'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'role' => \App\Http\Middleware\CheckUserRole::class, // میدل‌ور چک نقش کاربران
+        'CheckUserRole' => \App\Http\Middleware\CheckUserRole::class, // میدل‌ور چک نقش کاربران
     ];
 }

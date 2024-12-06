@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -24,19 +25,25 @@ class LoginController extends Controller
         $password = $request->input('password');
 
         $person = User::where('name', $username)->first();
+        $person1 = Admin::where('name', $username)->first();
 
         if ($person && Hash::check($password, $person->password)) {
+            auth()->guard('web')->login($person);
             return view('home')->with('<p>hello</p>');
-        } else {
+        }elseif($person1 && Hash::check($password, $person1->password))
+        {
+            auth()->guard('admin')->login($person1);
+            return view('home')->with('<p>hello</p>');
+        }
+        else {
             return view('login')->with('error', 'Try again');
         }
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        auth()->guard('admin')->logout();
+        auth()->guard('web')->logout();
         return redirect('/');
     }
 }
