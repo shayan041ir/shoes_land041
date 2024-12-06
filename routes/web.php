@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 
@@ -45,6 +46,7 @@ Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('
 Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
 
 
+Route::get('/User.userdashboard',[UserController::class,'index'])->name('user.dashboard');
 
 
 // Route::group(['middleware' => ['auth:admin']], function() {
