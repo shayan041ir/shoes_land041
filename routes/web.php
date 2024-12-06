@@ -32,7 +32,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
+Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard')->middleware('CheckUserRole');
 Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
 
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
