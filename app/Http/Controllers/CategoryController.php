@@ -17,13 +17,6 @@ class CategoryController extends Controller
             // dd($categories);
             return view('Admin.add-category', compact('categories'));
         }
-        // $categories = Category::all();
-        // dd($categories);
-        // return view('Admin.add-product', compact('categories'));
-        // return view('Admin.add-product')->with('categories', $categories);
-        // return View::make('admin.add-product', ['categories' => $categories]); // ارسال به ویو
-        // view()->share('categories', $categories); // ارسال به تمام ویوها
-        // return view('admin.add-product', ['categories' => $categories]); // ارسال به ویو
     }
 
     public function store(Request $request)

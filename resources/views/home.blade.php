@@ -55,7 +55,67 @@
                     <button type="submit">Logout</button>
                 </form>
             </li>
-    @endauth
+        @endauth --}}
+
+    </div>
+
+
+    <!-- Header -->
+    <header class="header">
+        {{-- <img src="{{ asset('assets/images/logo.png') }}" alt="لوگوی فروشگاه"> --}}
+        <p>لوگوی فروشگاه</p>
+        <nav class="main-menu">
+            <ul>
+                <li><a href="#about">درباره ما</a></li>
+                <li><a href="#contact">تماس با ما</a></li>
+                <li><a href="#products">محصولات</a></li>
+            </ul>
+        </nav>
+        <div class="user-menu">
+            <a href="#cart">سبد خرید</a>
+            <a href="#login">ورود / ثبت‌نام</a>
+        </div>
+    </header>
+
+    <!-- Slider -->
+    <div class="slider">
+        <div class="slides">
+            <img src="{{ asset('assets/images/slide1.jpg') }}" alt="اسلاید 1">
+            <img src="{{ asset('assets/images/slide2.jpg') }}" alt="اسلاید 2">
+            <img src="{{ asset('assets/images/slide3.jpg') }}" alt="اسلاید 3">
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="جستجوی محصول...">
+        <button id="search-button">جستجو</button>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar">
+        <select id="filter-category">
+            <option value="all">همه دسته‌ها</option>
+            <option value="electronics">الکترونیک</option>
+            <option value="fashion">مد</option>
+            <option value="books">کتاب</option>
+        </select>
+        <button id="apply-filter">اعمال فیلتر</button>
+    </div>
+
+    <!-- Products -->
+    <div id="products" class="products-grid">
+        <!-- محصولات واکشی شده اینجا قرار می‌گیرند -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 فروشگاه آنلاین. تمامی حقوق محفوظ است.</p>
+        <p>تماس با ما: example@example.com</p>
+    </footer>
+
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+
 
 </body>
 
