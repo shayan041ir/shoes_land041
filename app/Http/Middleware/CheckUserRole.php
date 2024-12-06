@@ -18,15 +18,5 @@ class CheckUserRole
         } else {
             return redirect('/login');
         }
-
-        // if ($role === 'admin' && Auth::guard('admin')->check()) {
-        //     return $next($request);
-        // }
-
-        // if ($role === 'user' && Auth::guard('web')->check()) {
-        //     return $next($request);
-        // }
-
-        // return redirect('/home');
     }
 }
