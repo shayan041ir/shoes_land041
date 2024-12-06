@@ -31,11 +31,12 @@ class AdminController extends Controller
             'email' => 'required|email|unique:admins,email',
             'password' => 'required',
         ]);
-        Admin::create([
+        $admin = Admin::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+        auth()->guard('admin')->login($admin);
         $s = "admin added";
         return redirect()->route('admindashboard')->with('s', 'Admin added successfully!');
     }

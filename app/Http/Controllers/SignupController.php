@@ -19,11 +19,12 @@ class SignupController extends Controller
             'password' => 'required',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password), // رمزنگاری رمز عبور
         ]);
+        auth()->guard('web')->login($user);
         return redirect('/login')->with('success', 'User created successfully!');
     }
 }

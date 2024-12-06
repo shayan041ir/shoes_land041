@@ -74,7 +74,7 @@
         <div class="user-menu">
             <a href="#cart">سبد خرید</a>
             @if (Auth::guard('admin')->check())
-                <li><a href="{{ route('admin.dashboard') }}">ادمین داشبورد</a></li>
+                <li><a href="{{ route('admindashboard') }}">ادمین داشبورد</a></li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit">Logout</button>

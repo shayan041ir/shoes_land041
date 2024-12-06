@@ -32,18 +32,13 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::group(['middleware' => ['auth:admin']], function () {
-    Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
-    Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
+Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
+Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
 
-    Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
+Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
 
-    Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
-    Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
-});
+Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
 
-
-Route::middleware(['auth:web'])->group(function () {
-    Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard');
-});
+Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard');
 
