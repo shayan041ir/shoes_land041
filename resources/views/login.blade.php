@@ -12,20 +12,15 @@
     <h1>login</h1>
     <form action="{{ route('login') }}" method="post">
         @csrf
-        @if (session('message'))
-            <div>{{ session('message') }}</div>
-        @endif
-
-        @if (session('error'))
-            <div>{{ session('error') }}</div>
-        @endif
-
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username"><br><br>
+        <input type="text" id="username" name="username" required><br><br>
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password"><br><br>
+        <input type="password" id="password" name="password" required><br><br>
         <input type="submit" value="Login">
     </form>
+    @error("username"&&"password")
+        <div>{{ $message }}</div>
+    @enderror
 </body>
 
 </html>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 class LoginController extends Controller
 {
     public function index()
@@ -36,7 +37,8 @@ class LoginController extends Controller
             return view('home')->with('<p>hello</p>');
         }
         else {
-            return view('login')->with('error', 'Try again');
+            // throw ValidationException::withMessages(['name'=>'this value is not ok']);
+            return redirect()->back();
         }
     }
 
