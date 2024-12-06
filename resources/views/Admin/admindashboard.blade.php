@@ -38,6 +38,9 @@
             <input type="submit" value="add admin">
         </form>
     </div>
+
+    @include('Admin.add-product');
+    
 </body>
 
 </html>
