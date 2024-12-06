@@ -26,6 +26,11 @@ body {
     text-decoration: none;
 }
 
+.header .user-menu a{
+    color: #fff;
+    text-decoration: none;
+}
+
 .slider {
     position: relative;
     overflow: hidden;

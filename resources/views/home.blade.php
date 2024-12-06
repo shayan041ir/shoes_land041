@@ -66,14 +66,15 @@
         <p>لوگوی فروشگاه</p>
         <nav class="main-menu">
             <ul>
-                <li><a href="#about">درباره ما</a></li>
-                <li><a href="#contact">تماس با ما</a></li>
+                <a href="{{ route('about') }}">درباره ما</a>
+                <a href="{{ route('contact') }}">تماس با ما</a>
                 <li><a href="#products">محصولات</a></li>
             </ul>
         </nav>
         <div class="user-menu">
             <a href="#cart">سبد خرید</a>
-            <a href="#login">ورود / ثبت‌نام</a>
+            <a href="{{ route('login') }}">ورود</a>
+            <a href="{{ route('singup') }}">ثبت‌نام</a>
         </div>
     </header>
 
