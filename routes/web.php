@@ -24,34 +24,26 @@ Route::get('/contact', function () {
 })->name('contact');
 
 
-Route::get('/singup',[SignupController::class,'index'])->name('singup');
-Route::post('/singup',[SignupController::class,'store'])->name('singup.store');
+Route::get('/singup', [SignupController::class, 'index'])->name('singup');
+Route::post('/singup', [SignupController::class, 'store'])->name('singup.store');
 
-Route::get('/login',[LoginController::class,'index'])->name('login');
-Route::post('/login',[LoginController::class,'login'])->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
+Route::group(['middleware' => ['auth:admin']], function () {
+    Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
+    Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
 
-Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+    Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
 
-
-Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
-// Route::get('/admindashboard', [AdminController::class, 'index'])->name('admindashboard')->middleware('auth');
-Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
-
-Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
-
-Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
-Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
+});
 
 
-Route::get('/User.userdashboard',[UserController::class,'index'])->name('user.dashboard');
+Route::middleware(['auth:web'])->group(function () {
+    Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard');
+});
 
-
-// Route::group(['middleware' => ['auth:admin']], function() {
-//     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-//     Route::get('/admin/product/edit/{id}', [AdminController::class, 'editProduct'])->name('admin.editProduct');
-//     Route::post('/admin/product/update/{id}', [AdminController::class, 'updateProduct'])->name('admin.updateProduct');
-//     Route::post('/admin/site/update', [AdminController::class, 'updateSiteInfo'])->name('admin.updateSiteInfo');
-// });

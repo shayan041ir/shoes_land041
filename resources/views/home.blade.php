@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فروشگاه آنلاین</title>
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -73,8 +73,22 @@
         </nav>
         <div class="user-menu">
             <a href="#cart">سبد خرید</a>
-            <a href="{{ route('login') }}">ورود</a>
-            <a href="{{ route('singup') }}">ثبت‌نام</a>
+            @if (Auth::guard('admin')->check())
+                <li><a href="{{ route('admin.dashboard') }}">ادمین داشبورد</a></li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+            @elseif (Auth::guard('web')->check())
+                <li><a href="{{ route('user.dashboard') }}">داشبورد کاربر</a></li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+            @else
+                <li><a href="{{ route('login') }}">ورود</a></li>
+                <li><a href="{{ route('singup') }}">ثبت‌نام</a></li>
+            @endif
         </div>
     </header>
 

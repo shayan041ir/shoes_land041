@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CheckUserRole
 {
@@ -16,13 +16,14 @@ class CheckUserRole
      */
     public function handle(Request $request, Closure $next)
     {
-        // بررسی اگر کاربر وارد شده باشد و رول او 'admin' باشد
-        if (auth()->check() && auth()->user()->role === 'admin') {
-            return $next($request); // اجازه ادامه درخواست را می‌دهیم
+        if ($role === 'admin' && Auth::guard('admin')->check()) {
+            return $next($request);
         }
 
-        // در غیر این صورت، کاربر را به صفحه ورود هدایت می‌کنیم
-        return redirect('/login')->with('error', 'Access denied.');
+        if ($role === 'user' && Auth::guard('web')->check()) {
+            return $next($request);
+        }
+
+        return redirect('/home');
     }
 }
-

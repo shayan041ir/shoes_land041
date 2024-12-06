@@ -13,7 +13,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         // چک کردن Maintenance Mode
         // \App\Http\Middleware\CheckForMaintenanceMode::class,
-
+    'role' => \App\Http\Middleware\CheckRole::class,
         // کنترل اندازه درخواست
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
 
