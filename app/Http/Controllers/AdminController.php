@@ -37,7 +37,7 @@ class AdminController extends Controller
             'password' => bcrypt($request->password),
         ]);
         $s = "admin added";
-        return redirect()->route('admindashboard')->with('s', 'Admin added successfully!');
+        return redirect()->route('Admin.admindashboard')->with('s', 'Admin added successfully!');
     }
 
 

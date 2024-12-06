@@ -32,8 +32,8 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::group(['middleware' => ['auth:admin']], function () {
-    Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
+Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
+Route::middleware(['auth:admin'])->group(function () {
     Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
 
     Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
@@ -42,8 +42,6 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
 });
 
-
 Route::middleware(['auth:web'])->group(function () {
     Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard');
 });
-
