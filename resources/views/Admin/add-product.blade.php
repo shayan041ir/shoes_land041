@@ -10,8 +10,8 @@
 
 <body>
 
-    @include('Admin.add-category');
-    <div class="add product">
+    @include('Admin.add-category')
+    <div class="add product" style="background-color: gray">
         <h1>add product</h1>
         @if (session('success'))
             <p style="color: green;">{{ session('success') }}</p>
@@ -51,6 +51,9 @@
             <label for="image">Product Image:</label><br>
             <input type="file" id="image" name="image" accept="image/*"><br><br>
 
+            @php
+                $categories = \App\Models\Category::all();
+            @endphp
             <label for="categories">Categories:</label><br>
             <select id="categories" name="categories[]" multiple>
                 @foreach ($categories as $category)

@@ -39,8 +39,8 @@
         </form>
     </div>
 
-    @include('Admin.add-product');
-    
+    @include('Admin.add-product')
+
 </body>
 
 </html>
