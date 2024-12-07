@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
+
 class ProductController extends Controller
 {
     public function store(Request $request)
@@ -45,5 +47,19 @@ class ProductController extends Controller
         }
 
         return redirect()->back()->with('success', 'Product added successfully!');
+    }
+
+    public function insertP(Request $request)
+    {
+        $categories = Category::all();
+        $selectedCategory = $request->input('category', 'all');
+
+        if ($selectedCategory == 'all') {
+            $products = Product::all();
+        } else {
+            $products = Category::where('name', $selectedCategory)->first()->products;
+        }
+
+        return view('home', compact('categories', 'products', 'selectedCategory'));
     }
 }

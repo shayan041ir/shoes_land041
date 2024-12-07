@@ -11,54 +11,10 @@
 
 <body>
 
-    <div class="nav">
-        {{-- <h1>Home</h1>
-        <p>Welcome to my home page</p>
-
-        @if (session('message'))
-            <div>{{ session('message') }}</div>
-        @endif
-
-        @if (session('error'))
-            <div>{{ session('error') }}</div>
-        @endif
-
-        <li>
-            <a href="{{ route('about') }}">About</a>
-        </li>
-        <li>
-            <a href="{{ route('contact') }}">Contact</a>
-        </li>
-
-        <li>
-            <a href="{{ route('admindashboard') }}">admindashboard</a>
-        </li> --}}
-
-        {{-- لینک‌های میهمان --}}
-        {{-- @guest
-            <li>
-                <a href="{{ route('login') }}">Login</a>
-            </li>
-            <li>
-                <a href="{{ route('singup') }}">Sign Up</a>
-            </li>
-        @endguest --}}
-
-        {{-- لینک‌های کاربر واردشده --}}
-        {{-- @auth
-            <li>
-                <a href="{{ route('dashboard') }}">Panel</a>
-            </li>
-            <li>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form>
-            </li>
-        @endauth --}}
-
-    </div>
-
+    @php
+        $categories = \App\Models\Category::all();
+        $products = \App\Models\Product::all();
+    @endphp
 
     <!-- Header -->
     <header class="header">
@@ -107,29 +63,83 @@
         <button id="search-button">جستجو</button>
     </div>
 
+
     <!-- Filter -->
     <div class="filter-bar">
-        <select id="filter-category">
-            <option value="all">همه دسته‌ها</option>
-            <option value="electronics">الکترونیک</option>
-            <option value="fashion">مد</option>
-            <option value="books">کتاب</option>
-        </select>
-        <button id="apply-filter">اعمال فیلتر</button>
-    </div>
+        <form method="GET" action="{{ route('home.product') }}">
+            <select id="filter-category" name="category">
+                <option value="all" {{ $selectedCategory == 'all' ? 'selected' : '' }}>همه دسته‌ها</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->name }}" {{ $selectedCategory == $category->name ? 'selected' : '' }}>{{ $category->name }}</option>
+                @endforeach
+            </select>
+            <button type="submit">اعمال فیلتر</button>
+        </form>    </div>
+
 
     <!-- Products -->
     <div id="products" class="products-grid">
-        <!-- محصولات واکشی شده اینجا قرار می‌گیرند -->
+        @foreach ($products as $product)
+            <div class="product" data-category="{{ $product->category }}">
+                <img src="{{ $product->image }}" alt="{{ $product->name }}">
+                <p>{{ $product->name }}</p>
+            </div>
+        @endforeach
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const products = @json($products);
+
+            function renderProducts(filter = "all") {
+                const productsContainer = document.getElementById('products');
+                productsContainer.innerHTML = '';
+                const filteredProducts = products.filter(
+                    (p) => filter === "all" || p.category === filter
+                );
+                filteredProducts.forEach((product) => {
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product');
+                    productDiv.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <p>${product.name}</p>
+                    `;
+                    productsContainer.appendChild(productDiv);
+                });
+            }
+
+            renderProducts();
+
+            document.getElementById('apply-filter').addEventListener('click', () => {
+                const selectedCategory = document.getElementById('filter-category').value;
+                renderProducts(selectedCategory);
+            });
+
+            document.getElementById('search-button').addEventListener('click', () => {
+                const query = document.getElementById('search-input').value.toLowerCase();
+                const productsContainer = document.getElementById('products');
+                productsContainer.innerHTML = '';
+                products
+                    .filter((p) => p.name.toLowerCase().includes(query))
+                    .forEach((product) => {
+                        const productDiv = document.createElement('div');
+                        productDiv.classList.add('product');
+                        productDiv.innerHTML = `
+                            <img src="${product.image}" alt="${product.name}">
+                            <p>${product.name}</p>
+                        `;
+                        productsContainer.appendChild(productDiv);
+                    });
+            });
+        });
+    </script>
     <!-- Footer -->
     <footer class="footer">
         <p>© 2024 فروشگاه آنلاین. تمامی حقوق محفوظ است.</p>
         <p>تماس با ما: example@example.com</p>
     </footer>
 
-    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/scripts.js') }}"></script> --}}
 
 
 </body>
