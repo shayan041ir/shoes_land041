@@ -52,14 +52,36 @@ class ProductController extends Controller
     public function insertP(Request $request)
     {
         $categories = Category::all();
+        $brand = $request->input('brand');
         $selectedCategory = $request->input('category', 'all');
-
-        if ($selectedCategory == 'all') {
-            $products = Product::all();
-        } else {
-            $products = Category::where('name', $selectedCategory)->first()->products;
+    
+        // فیلتر محصولات بر اساس برند و دسته‌بندی
+        $products = Product::query();
+    
+        if ($brand) {
+            $products->where('brand', 'like', "%$brand%");
         }
-
+    
+        if ($selectedCategory !== 'all') {
+            $category = Category::where('name', $selectedCategory)->first();
+            if ($category) {
+                $products->whereHas('categories', function ($query) use ($category) {
+                    $query->where('categories.id', $category->id);
+                });
+            }
+        }
+    
+        $products = $products->get();
+    
+        // پاسخ به درخواست
+        if ($request->ajax()) {
+            return response()->json([
+                'products' => $products,
+            ]);
+        }
+    
         return view('home', compact('categories', 'products', 'selectedCategory'));
     }
+    
+    
 }

@@ -18,7 +18,6 @@
 
     <!-- Header -->
     <header class="header">
-        {{-- <img src="{{ asset('assets/images/logo.png') }}" alt="لوگوی فروشگاه"> --}}
         <p>لوگوی فروشگاه</p>
         <nav class="main-menu">
             <ul>
@@ -66,73 +65,71 @@
 
     <!-- Filter -->
     <div class="filter-bar">
-        <form method="GET" action="{{ route('home.product') }}">
-            <select id="filter-category" name="category">
-                <option value="all" {{ $selectedCategory == 'all' ? 'selected' : '' }}>همه دسته‌ها</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->name }}" {{ $selectedCategory == $category->name ? 'selected' : '' }}>{{ $category->name }}</option>
-                @endforeach
-            </select>
-            <button type="submit">اعمال فیلتر</button>
-        </form>    </div>
-
+        <select id="filter-category">
+            <option value="all">همه دسته‌ها</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
+        <button id="filter-button">اعمال فیلتر</button>
+    </div>
 
     <!-- Products -->
     <div id="products" class="products-grid">
         @foreach ($products as $product)
-            <div class="product" data-category="{{ $product->category }}">
-                <img src="{{ $product->image }}" alt="{{ $product->name }}">
+            <div class="product">
+                <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
                 <p>{{ $product->name }}</p>
+                <p>برند: {{ $product->brand }}</p>
+                <p>قیمت: {{ $product->price }} تومان</p>
             </div>
         @endforeach
     </div>
 
+    <!-- AJAX Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const products = @json($products);
-
-            function renderProducts(filter = "all") {
-                const productsContainer = document.getElementById('products');
-                productsContainer.innerHTML = '';
-                const filteredProducts = products.filter(
-                    (p) => filter === "all" || p.category === filter
-                );
-                filteredProducts.forEach((product) => {
-                    const productDiv = document.createElement('div');
-                    productDiv.classList.add('product');
-                    productDiv.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}">
-                        <p>${product.name}</p>
-                    `;
-                    productsContainer.appendChild(productDiv);
+        $(document).ready(function () {
+            function fetchProducts(filterCategory, searchQuery) {
+                $.ajax({
+                    url: "{{ route('home.product') }}",
+                    type: "GET",
+                    data: {
+                        category: filterCategory,
+                        search: searchQuery
+                    },
+                    success: function (response) {
+                        $('#products').html('');
+                        response.products.forEach(product => {
+                            $('#products').append(`
+                                <div class="product">
+                                    <img src="/storage/${product.image}" alt="${product.name}">
+                                    <p>${product.name}</p>
+                                    <p>برند: ${product.brand}</p>
+                                    <p>قیمت: ${product.price} تومان</p>
+                                </div>
+                            `);
+                        });
+                    },
+                    error: function () {
+                        alert('مشکلی در واکشی داده‌ها رخ داده است!');
+                    }
                 });
             }
 
-            renderProducts();
-
-            document.getElementById('apply-filter').addEventListener('click', () => {
-                const selectedCategory = document.getElementById('filter-category').value;
-                renderProducts(selectedCategory);
+            $('#search-button').on('click', function () {
+                const searchQuery = $('#search-input').val();
+                const filterCategory = $('#filter-category').val();
+                fetchProducts(filterCategory, searchQuery);
             });
 
-            document.getElementById('search-button').addEventListener('click', () => {
-                const query = document.getElementById('search-input').value.toLowerCase();
-                const productsContainer = document.getElementById('products');
-                productsContainer.innerHTML = '';
-                products
-                    .filter((p) => p.name.toLowerCase().includes(query))
-                    .forEach((product) => {
-                        const productDiv = document.createElement('div');
-                        productDiv.classList.add('product');
-                        productDiv.innerHTML = `
-                            <img src="${product.image}" alt="${product.name}">
-                            <p>${product.name}</p>
-                        `;
-                        productsContainer.appendChild(productDiv);
-                    });
+            $('#filter-button').on('click', function () {
+                const searchQuery = $('#search-input').val();
+                const filterCategory = $('#filter-category').val();
+                fetchProducts(filterCategory, searchQuery);
             });
         });
     </script>
+    
     <!-- Footer -->
     <footer class="footer">
         <p>© 2024 فروشگاه آنلاین. تمامی حقوق محفوظ است.</p>
@@ -140,8 +137,6 @@
     </footer>
 
     {{-- <script src="{{ asset('assets/js/scripts.js') }}"></script> --}}
-
-
 </body>
 
 </html>
