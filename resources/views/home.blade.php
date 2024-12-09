@@ -78,7 +78,7 @@
     <div id="products" class="products-grid">
         @foreach ($products as $product)
             <div class="product">
-                <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
+                <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}" style="height: 40px; width: 40px;">
                 <p>{{ $product->name }}</p>
                 <p>برند: {{ $product->brand }}</p>
                 <p>قیمت: {{ $product->price }} تومان</p>
@@ -88,10 +88,11 @@
 
     <!-- AJAX Script -->
     <script>
+        
         $(document).ready(function () {
             function fetchProducts(filterCategory, searchQuery) {
                 $.ajax({
-                    url: "{{ route('home.product') }}",
+                    url: "{{ route('home.products.filter') }}",
                     type: "GET",
                     data: {
                         category: filterCategory,
@@ -102,7 +103,7 @@
                         response.products.forEach(product => {
                             $('#products').append(`
                                 <div class="product">
-                                    <img src="/storage/${product.image}" alt="${product.name}">
+                                    <img src="/storage/${product.image}" alt="${product.name}" style="height: 40px; width: 40px;">
                                     <p>${product.name}</p>
                                     <p>برند: ${product.brand}</p>
                                     <p>قیمت: ${product.price} تومان</p>

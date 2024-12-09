@@ -14,7 +14,9 @@ Route::get('/', function () {
 });
 
 Route::get('home', [HomeController::class, 'index'])->name('home');
-Route::post('home', [ProductController::class, 'insertP'])->name('home.product');
+// Route::post('home', [ProductController::class, 'insertP'])->name('home.product');
+Route::get('home/products', [ProductController::class, 'insertP'])->name('home.products.filter');
+
 
 Route::get('/about', function () {
     return view('about');

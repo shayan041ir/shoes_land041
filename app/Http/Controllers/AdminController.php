@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Slider;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Middleware;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -63,4 +65,38 @@ class AdminController extends Controller
         // کد تغییرات اطلاعات سایت
         return redirect()->route('admin.dashboard');
     }
+
+    // مدریت اسلایدر 
+    public function showSliderManagement()
+    {
+        $sliders = Slider::all();
+        $products = Product::all(); // لیست محصولات برای لینک‌دادن
+        return view('Admin.slider-management', compact('sliders', 'products'));
+    }
+    
+    public function uploadSlider(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'product_id' => 'nullable|exists:products,id',
+        ]);
+    
+        $path = $request->file('image')->store('sliders', 'public');
+    
+        if (Slider::count() >= 4) {
+            $oldestSlider = Slider::oldest()->first();
+            if ($oldestSlider) {Storage::disk('public')->delete($oldestSlider->image_path);
+                $oldestSlider->delete();
+            }
+        }
+    
+        Slider::create([
+            'image_path' => $path,
+            'product_id' => $request->product_id,
+        ]);
+    
+        return redirect()->route('admindashboard')->with('success', 'اسلاید جدید با موفقیت اضافه شد!');
+    }
+    
+
 }
