@@ -14,8 +14,8 @@ Route::get('/', function () {
 });
 
 Route::get('home', [HomeController::class, 'index'])->name('home');
-// Route::post('home', [ProductController::class, 'insertP'])->name('home.product');
 Route::get('home/products', [ProductController::class, 'insertP'])->name('home.products.filter');
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
 
 Route::get('/about', function () {
@@ -37,6 +37,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
 Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
+Route::get('/Admin.admindashboard-show-slider',[AdminController::class,'showSliderManagement'])->name('show-slider');
+Route::post('/Admin.admindashboard-slider',[AdminController::class, 'uploadSlider'])->name('admin.slider.upload');
 
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
 

@@ -14,6 +14,10 @@
 </head>
 
 <body>
+    @php
+        $products = \App\Models\Product::all();
+        $sliders = \App\Models\Slider::all();
+    @endphp
     <h1>Admin Dashboard</h1>
     <div class="add-admin">
         <h1>add admin</h1>

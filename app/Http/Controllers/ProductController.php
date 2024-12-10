@@ -83,5 +83,10 @@ class ProductController extends Controller
         return view('home', compact('categories', 'products', 'selectedCategory'));
     }
     
+    public function show($id)
+    {
+        // ارسال محصول به ویو
+        return view('product-details', compact('id'));
+    }
     
 }
