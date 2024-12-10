@@ -39,11 +39,11 @@ Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('ad
 Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
 Route::get('/Admin.admindashboard-show-slider',[AdminController::class,'showSliderManagement'])->name('show-slider');
 Route::post('/Admin.admindashboard-slider',[AdminController::class, 'uploadSlider'])->name('admin.slider.upload');
-
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
-
 Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
+
+
 
 Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard');
 
