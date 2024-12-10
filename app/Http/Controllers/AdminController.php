@@ -120,6 +120,21 @@ class AdminController extends Controller
         return view('Admin.slider-management', compact('sliders', 'products'));
     }
 
+    public function deleteSlider($id)
+    {
+        $slider = Slider::findOrFail($id);
+
+        // حذف تصویر از فضای ذخیره‌سازی
+        if ($slider->image_path) {
+            Storage::disk('public')->delete($slider->image_path);
+        }
+
+        // حذف رکورد از دیتابیس
+        $slider->delete();
+
+        return redirect()->back()->with('success', 'اسلاید با موفقیت حذف شد!');
+    }
+    
     public function uploadSlider(Request $request)
     {
         $request->validate([

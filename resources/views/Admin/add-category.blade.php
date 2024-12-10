@@ -1,9 +1,6 @@
-
-<div class="categories" style="background-color: gray">
+{{-- <div class="categories" style="background-color: gray">
     <h1>Categories</h1>
-    @php
-        $categories = \App\Models\Category::all();
-    @endphp
+
     @if ($categories->isEmpty())
         <p>No categories available.</p>
     @else
@@ -13,24 +10,19 @@
             @endforeach
         </ul>
     @endif
-</div>
+</div> --}}
 
 
 <div class="add-category" style="background-color: gray">
+    @php
+        $categories = \App\Models\Category::all();
+    @endphp
+
+    @if ($categories->isEmpty())
+        <p>No categories available.</p>
+    @endif
+
     <h1>Add New Category</h1>
-
-    @if (session('success'))
-        <p style="color: green;">{{ session('success') }}</p>
-    @endif
-
-    @if ($errors->any())
-        <ul style="color: red;">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-
     <form action="{{ route('categories.store') }}" method="POST">
         @csrf
         <label for="name">Category Name:</label><br>
@@ -38,4 +30,36 @@
 
         <button type="submit">Add Category</button>
     </form>
+
+
+    <h1>لیست دسته‌بندی‌ها</h1>
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>نام دسته‌بندی</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($categories as $category)
+                <tr>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->name }}</td>
+                    <td>
+                        <form action="{{ route('category.delete', $category->id) }}" method="POST"
+                            onsubmit="return confirm('Are you sure you want to delete this category?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">حذف</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>

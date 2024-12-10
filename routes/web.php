@@ -43,12 +43,15 @@ Route::delete('/Admin.admindashboard-deleteuser/{id}', [AdminController::class, 
 
 
 Route::get('/Admin.admindashboard-show-slider',[AdminController::class,'showSliderManagement'])->name('show-slider');
+Route::delete('/Admin.admindashboard-delete-slider/{id}', [AdminController::class, 'deleteSlider'])->name('slider.delete');
 Route::post('/Admin.admindashboard-slider',[AdminController::class, 'uploadSlider'])->name('admin.slider.upload');
 
 
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
 Route::delete('/Admin.admindashboard/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+
 Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
+Route::delete('/Admin.add-category/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
 
 

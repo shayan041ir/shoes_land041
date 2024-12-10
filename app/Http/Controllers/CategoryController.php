@@ -19,6 +19,20 @@ class CategoryController extends Controller
         }
     }
 
+    public function destroy($id)
+{
+    $category = Category::findOrFail($id);
+
+    // حذف ارتباط دسته‌بندی با محصولات
+    $category->products()->detach();
+
+    // حذف دسته‌بندی
+    $category->delete();
+
+    return redirect()->back()->with('success', 'Category deleted successfully!');
+}
+
+
     public function store(Request $request)
     {
         $request->validate([
