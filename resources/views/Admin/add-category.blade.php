@@ -1,18 +1,10 @@
-{{-- <pre>@php print_r($categories->toArray()); @endphp</pre> --}}
 
 <div class="categories" style="background-color: gray">
     <h1>Categories</h1>
     @php
         $categories = \App\Models\Category::all();
     @endphp
-
-    <ul>
-        @foreach ($categories as $category)
-            <li>{{ $category->name }}</li>
-        @endforeach
-    </ul>
-
-    {{-- @if ($categories->isEmpty())
+    @if ($categories->isEmpty())
         <p>No categories available.</p>
     @else
         <ul>
@@ -20,7 +12,7 @@
                 <li>{{ $category->name }}</li>
             @endforeach
         </ul>
-    @endif --}}
+    @endif
 </div>
 
 

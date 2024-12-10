@@ -10,7 +10,7 @@ class SignupController extends Controller
     {
         return view('template.singup');
     }
-
+ 
     public function store(Request $request)
     {
         $request->validate( [

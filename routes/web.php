@@ -37,9 +37,17 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
 Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
+Route::delete('/Admin.admindashboard-deleteadmin/{id}', [AdminController::class, 'delete'])->name('admin.delete');
+Route::post('/Admin.admindashboard-adduser', [AdminController::class, 'adduser'])->name('admin.adduser');
+Route::delete('/Admin.admindashboard-deleteuser/{id}', [AdminController::class, 'deleteUser'])->name('user.delete');
+
+
 Route::get('/Admin.admindashboard-show-slider',[AdminController::class,'showSliderManagement'])->name('show-slider');
 Route::post('/Admin.admindashboard-slider',[AdminController::class, 'uploadSlider'])->name('admin.slider.upload');
+
+
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
+Route::delete('/Admin.admindashboard/{id}', [ProductController::class, 'destroy'])->name('product.delete');
 Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('categories.store');
 
