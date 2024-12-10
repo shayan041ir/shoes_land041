@@ -8,7 +8,7 @@ class SignupController extends Controller
 {
     public function index()
     {
-        return view('singup');
+        return view('template.singup');
     }
 
     public function store(Request $request)
@@ -25,6 +25,6 @@ class SignupController extends Controller
             'password' => bcrypt($request->password), // رمزنگاری رمز عبور
         ]);
         auth()->guard('web')->login($user);
-        return redirect('/login')->with('success', 'User created successfully!');
+        return redirect('/template.login')->with('success', 'User created successfully!');
     }
 }

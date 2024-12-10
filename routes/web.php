@@ -19,11 +19,11 @@ Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.s
 
 
 Route::get('/about', function () {
-    return view('about');
+    return view('template.about');
 })->name('about');
 
 Route::get('/contact', function () {
-    return view('contact');
+    return view('template.contact');
 })->name('contact');
 
 

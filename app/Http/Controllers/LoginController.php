@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('login');
+        return view('template.login');
     }
 
     public function login(Request $request)
