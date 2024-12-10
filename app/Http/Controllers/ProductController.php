@@ -86,7 +86,7 @@ class ProductController extends Controller
     public function show($id)
     {
         // ارسال محصول به ویو
-        return view('product-details', compact('id'));
+        return view('template.product-details', compact('id'));
     }
     
 }
