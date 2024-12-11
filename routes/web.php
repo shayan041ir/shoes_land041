@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {
     return view('home');
@@ -43,6 +44,9 @@ Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name
 Route::delete('/Admin.admindashboard-deleteadmin/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 Route::post('/Admin.admindashboard-adduser', [AdminController::class, 'adduser'])->name('admin.adduser');
 Route::delete('/Admin.admindashboard-deleteuser/{id}', [AdminController::class, 'deleteUser'])->name('user.delete');
+Route::post('Admin.admindashboard-invoices/create', [InvoiceController::class, 'createInvoice'])->name('invoices.create');
+Route::get('Admin.admindashboard-invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
+Route::get('/admin/invoices/{id}', [InvoiceController::class, 'show'])->name('admin.invoices.show');
 
 
 Route::get('/Admin.admindashboard-show-slider',[AdminController::class,'showSliderManagement'])->name('show-slider');
@@ -61,6 +65,7 @@ Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('
 
 
 Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard');
+Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
 
 
 Route::post('/cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');

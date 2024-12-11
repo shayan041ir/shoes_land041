@@ -62,6 +62,41 @@
         @endif
     </div>
 
+    <div class="container">
+        @if (session('success'))
+            <p style="color: green;">{{ session('success') }}</p>
+        @endif
+
+        @if ($errors->any())
+            <ul style="color: red;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
+        <h2>ویرایش اطلاعات کاربری</h2>
+        <form action="{{ route('user.update') }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <label for="name">نام کاربری:</label>
+            <input type="text" id="name" name="name" value="{{ auth()->user()->name }}" required>
+            <br>
+            <label for="password">رمز عبور جدید:</label>
+            <input type="password" id="password" name="password">
+            <br>
+
+            <label for="password_confirmation">تأیید رمز عبور:</label>
+            <input type="password" id="password_confirmation" name="password_confirmation">
+            <br>
+
+            <button type="submit">ویرایش</button>
+        </form>
+
+    </div>
+
+
 </body>
 
 </html>

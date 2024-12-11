@@ -10,12 +10,14 @@
                         <th>قیمت</th>
                         <th>مجموع</th>
                         <th>عملیات</th>
+                        <th>عملیات</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (session('cart') as $id => $item)
                         <tr>
-                            <td><img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" width="50">
+                            <td><img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}"
+                                    width="50">
                             </td>
                             <td>{{ $item['name'] }}</td>
                             <td>{{ $item['quantity'] }}</td>
@@ -28,6 +30,17 @@
                                     <button type="submit" class="btn btn-danger">حذف</button>
                                 </form>
                             </td>
+                            <td>
+                                @if (session('cart') && count(session('cart')) > 0)
+                                    <div class="text-end">
+                                        <form action="{{ route('checkout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success">پرداخت</button>
+                                        </form>
+                                    </div>
+                                @endif
+                            </td>
+
                         </tr>
                     @endforeach
                 </tbody>

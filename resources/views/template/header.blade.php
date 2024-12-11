@@ -10,7 +10,6 @@
     </ul>
 </nav>
 <div class="user-menu">
-    <li><a href="{{ route('cart.view') }}">card</a></li>
     @if (Auth::guard('admin')->check())
         <li><a href="{{ route('admindashboard') }}">ادمین داشبورد</a></li>
         <form action="{{ route('logout') }}" method="POST">
@@ -18,7 +17,7 @@
             <button type="submit">Logout</button>
         </form>
     @elseif (Auth::guard('web')->check())
-        <a href="#cart">سبد خرید</a>
+        <li><a href="{{ route('cart.view') }}">card</a></li>
         <li><a href="{{ route('user.dashboard') }}">داشبورد کاربر</a></li>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
