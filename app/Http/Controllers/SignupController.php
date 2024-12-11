@@ -25,6 +25,6 @@ class SignupController extends Controller
             'password' => bcrypt($request->password), // رمزنگاری رمز عبور
         ]);
         auth()->guard('web')->login($user);
-        return redirect('/template.login')->with('success', 'User created successfully!');
+        return view('template.login')->with('success', 'User created successfully!');
     }
 }

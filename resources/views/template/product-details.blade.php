@@ -2,6 +2,8 @@
     $product = \App\Models\Product::findOrFail($id);
 @endphp --}}
 <div class="container">
+    <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
+
     <div class="row">
         <div class="col-md-6">
             <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="img-fluid">

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('total_price', 10, 2);
             $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');
-            // $table->string('payment_method')->nullable(); // روش پرداخت
-            $table->string('shipping_address')->nullable(); // آدرس ارسال
+            $table->string('seller_name')->default('Shoes Land');  // اضافه کردن نام فروشنده
+            $table->timestamp('order_date')->useCurrent();  // تاریخ خرید            $table->string('shipping_address')->nullable(); // آدرس ارسال
             $table->timestamps();
         });
     }

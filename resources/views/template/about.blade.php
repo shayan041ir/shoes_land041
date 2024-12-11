@@ -10,6 +10,8 @@
 
 <body>
     <h1>About</h1>
+    <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
+
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor,
         vestibulum magna sed, convallis ex. Cum sociis natoque penatibus et
         magnis dis parturient montes, nascetur ridiculus mus. Integer posu

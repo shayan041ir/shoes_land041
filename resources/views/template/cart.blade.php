@@ -1,5 +1,7 @@
     <div class="container">
         <h2>سبد خرید شما</h2>
+    <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
+
         @if (session('cart') && count(session('cart')) > 0)
             <table class="table">
                 <thead>

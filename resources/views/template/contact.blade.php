@@ -8,6 +8,8 @@
     <title>contact</title>
 </head>
     <h1>Contact Us</h1>
+    <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
+
     <form action="contact.php" method="post">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name"><br><br>

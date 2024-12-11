@@ -13,6 +13,8 @@ class Order extends Model
         'user_id',
         'total_price',
         'status',
+        'seller_name', // نام فروشنده
+        'order_date',   // تاریخ خرید
         'payment_method',
         'shipping_address',
     ];

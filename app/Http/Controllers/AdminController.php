@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Middleware;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Order;
 
 class AdminController extends Controller
 {
@@ -134,7 +135,7 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'اسلاید با موفقیت حذف شد!');
     }
-    
+
     public function uploadSlider(Request $request)
     {
         $request->validate([
@@ -159,4 +160,14 @@ class AdminController extends Controller
 
         return redirect()->route('admindashboard')->with('success', 'اسلاید جدید با موفقیت اضافه شد!');
     }
+
+
+
+    public function showOrders()
+    {
+        // بارگذاری تمامی سفارشات به همراه اطلاعات کاربر و آیتم‌های سفارش
+        $orders = Order::with('user', 'orderItems.product')->get();
+
+        // ارسال داده‌ها به بلید
+        return view('Admin.admin-factor', compact('orders'));    }
 }

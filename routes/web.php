@@ -44,10 +44,8 @@ Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name
 Route::delete('/Admin.admindashboard-deleteadmin/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 Route::post('/Admin.admindashboard-adduser', [AdminController::class, 'adduser'])->name('admin.adduser');
 Route::delete('/Admin.admindashboard-deleteuser/{id}', [AdminController::class, 'deleteUser'])->name('user.delete');
-Route::post('Admin.admindashboard-invoices/create', [InvoiceController::class, 'createInvoice'])->name('invoices.create');
-Route::get('Admin.admindashboard-invoices/{id}', [InvoiceController::class, 'showInvoice'])->name('invoices.show');
-Route::get('/admin/invoices/{id}', [InvoiceController::class, 'show'])->name('admin.invoices.show');
 
+Route::get('/Admin.admindashboard-factor',[AdminController::class,'showOrders'])->name('factor.show');
 
 Route::get('/Admin.admindashboard-show-slider',[AdminController::class,'showSliderManagement'])->name('show-slider');
 Route::delete('/Admin.admindashboard-delete-slider/{id}', [AdminController::class, 'deleteSlider'])->name('slider.delete');
