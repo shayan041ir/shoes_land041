@@ -23,6 +23,7 @@
                         <th>قیمت</th>
                         <th>مجموع</th>
                         <th>عملیات</th>
+                        <th>عملیات</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,18 +43,20 @@
                                     <button type="submit" class="btn btn-danger">حذف</button>
                                 </form>
                             </td>
+                            <td>
+                                @if (session('cart') && count(session('cart')) > 0)
+                                    <div class="text-end">
+                                        <form action="{{ route('checkout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success">پرداخت</button>
+                                        </form>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            @if (session('cart') && count(session('cart')) > 0)
-                <div class="text-end">
-                    <form action="{{ route('checkout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-success">پرداخت</button>
-                    </form>
-                </div>
-            @endif
         @else
             <p>سبد خرید شما خالی است.</p>
         @endif

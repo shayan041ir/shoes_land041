@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -17,12 +18,13 @@ class CheckoutController extends Controller
         }
 
         // ایجاد سفارش جدید
-        $order = Order::create([
-            'user_id' => auth()->id(),
+        $order = new Order([
+            'user_id' => Auth::id(),
             'total_price' => array_reduce($cart, function ($sum, $item) {
                 return $sum + ($item['quantity'] * $item['price']);
             }, 0),
-        ]);
+        ]); 
+        $order->save();
 
         // افزودن آیتم‌های سفارش به دیتابیس
         foreach ($cart as $productId => $item) {
@@ -42,6 +44,6 @@ class CheckoutController extends Controller
     }
     public function success(Order $order)
     {
-        return view('order.success', compact('order'));
+        return view('template.order-success', compact('order'));
     }
 }
