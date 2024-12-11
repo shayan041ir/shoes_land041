@@ -21,6 +21,8 @@
         $admins = \App\Models\Admin::all();
     @endphp
     <h1>Admin Dashboard</h1>
+    <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
+
     {{-- add-admin --}}
     @include('Admin.add-admin')
 

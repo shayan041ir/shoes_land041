@@ -105,7 +105,8 @@ class ProductController extends Controller
 
     public function show($id)
     {
+        $product = Product::with('comments.user')->findOrFail($id);
         // ارسال محصول به ویو
-        return view('template.product-details', compact('id'));
+        return view('template.product-details', compact('product'));
     }
 }
