@@ -8,6 +8,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CheckoutController;
 
 Route::get('/', function () {
     return view('home');
@@ -47,6 +50,7 @@ Route::delete('/Admin.admindashboard-delete-slider/{id}', [AdminController::clas
 Route::post('/Admin.admindashboard-slider',[AdminController::class, 'uploadSlider'])->name('admin.slider.upload');
 
 
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
 Route::delete('/Admin.admindashboard/{id}', [ProductController::class, 'destroy'])->name('product.delete');
 
@@ -58,3 +62,14 @@ Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('
 
 Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard');
 
+
+Route::post('/cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
+Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+
+Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comments.store');
+
+
+
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
+Route::get('/order/success/{order}', [CheckoutController::class, 'success'])->name('order.success');

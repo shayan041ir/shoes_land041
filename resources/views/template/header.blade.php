@@ -10,6 +10,7 @@
     </ul>
 </nav>
 <div class="user-menu">
+    <li><a href="{{ route('cart.view') }}">card</a></li>
     @if (Auth::guard('admin')->check())
         <li><a href="{{ route('admindashboard') }}">ادمین داشبورد</a></li>
         <form action="{{ route('logout') }}" method="POST">

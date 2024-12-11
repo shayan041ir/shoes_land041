@@ -1,4 +1,3 @@
-@section('content')
     <div class="container">
         <h2>سبد خرید شما</h2>
         @if (session('cart') && count(session('cart')) > 0)
@@ -37,4 +36,3 @@
             <p>سبد خرید شما خالی است.</p>
         @endif
     </div>
-@endsection

@@ -19,16 +19,18 @@
     <!-- Products -->
     <div id="products" class="products-grid">
         @foreach ($products as $product)
-            <div class="product">
-                <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
-                    style="height: 40px; width: 40px;">
-                <p>{{ $product->name }}</p>
-                <p>برند: {{ $product->brand }}</p>
-                <p>قیمت: {{ $product->price }} تومان</p>
-            </div>
+            <a href="{{ route('product.show', ['id' => $product->id]) }}">
+                <div class="product">
+                    <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
+                        style="height: 40px; width: 40px;">
+                    <p>{{ $product->name }}</p>
+                    <p>برند: {{ $product->brand }}</p>
+                    <p>قیمت: {{ $product->price }} تومان</p>
+                </div>
+            </a>
         @endforeach
     </div>
-
+    
     <!-- AJAX Script -->
     <script>
         $(document).ready(function() {
