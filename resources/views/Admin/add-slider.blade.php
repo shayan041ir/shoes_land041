@@ -16,28 +16,16 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit">آپلود اسلاید</button>
+            <button type="submit" style="background-color: green; color: white; padding: 10px 20px;">آپلود اسلاید</button>
         </form>
 
         <h3>اسلایدهای فعلی:</h3>
-        {{-- <div>
-            @foreach ($sliders as $slider)
-                <div>
-                    <img src="{{ asset('storage/' . $slider->image_path) }}" alt="اسلاید"
-                        style="width: 100px; height: auto;">
-                    @if ($slider->product)
-                        <p>محصول مرتبط: {{ $slider->product->name }}</p>
-                    @endif
-                </div>
-            @endforeach
-        </div> --}}
-
 
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
     
-        <table class="table table-bordered">
+        <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
             <thead>
                 <tr>
                     <th>تصویر</th>
@@ -54,7 +42,7 @@
                             <form action="{{ route('slider.delete', $slider->id) }}" method="POST" onsubmit="return confirm('آیا مطمئن هستید که می‌خواهید این اسلایدر را حذف کنید؟');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">حذف</button>
+                                <button type="submit" class="btn btn-danger" style="background-color: red; color: white; padding: 5px 10px;">حذف</button>
                             </form>
                         </td>
                     </tr>

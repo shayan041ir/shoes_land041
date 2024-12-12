@@ -1,13 +1,16 @@
 {{-- add-category --}}
 @include('Admin.add-category')
 
+<br>
+<div class="add-product-section" style="background-color: gray; padding: 20px;">
+    <h1>افزودن محصول</h1>
 
-<div class="add product" style="background-color: gray">
-    <h1>add product</h1>
+    {{-- نمایش پیام موفقیت --}}
     @if (session('success'))
         <p style="color: green;">{{ session('success') }}</p>
     @endif
 
+    {{-- نمایش خطاها --}}
     @if ($errors->any())
         <ul style="color: red;">
             @foreach ($errors->all() as $error)
@@ -15,49 +18,73 @@
             @endforeach
         </ul>
     @endif
+
+    {{-- فرم افزودن محصول --}}
     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <label for="name">Product Name:</label><br>
-        <input type="text" id="name" name="name" value="{{ old('name') }}" required><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="name">نام محصول:</label><br>
+            <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+        </div>
 
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description">{{ old('description') }}</textarea><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="description">توضیحات:</label><br>
+            <textarea id="description" name="description">{{ old('description') }}</textarea>
+        </div>
 
-        <label for="price">Price:</label><br>
-        <input type="number" step="0.01" id="price" name="price" value="{{ old('price') }}" required><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="price">قیمت:</label><br>
+            <input type="number" step="0.01" id="price" name="price" value="{{ old('price') }}" required>
+        </div>
 
-        <label for="stock">Stock:</label><br>
-        <input type="number" id="stock" name="stock" value="{{ old('stock') }}" required><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="stock">موجودی:</label><br>
+            <input type="number" id="stock" name="stock" value="{{ old('stock') }}" required>
+        </div>
 
-        <label for="color">Color:</label><br>
-        <input type="text" id="color" name="color" value="{{ old('color') }}"><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="color">رنگ:</label><br>
+            <input type="text" id="color" name="color" value="{{ old('color') }}">
+        </div>
 
-        <label for="material">Material:</label><br>
-        <input type="text" id="material" name="material" value="{{ old('material') }}"><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="material">جنس:</label><br>
+            <input type="text" id="material" name="material" value="{{ old('material') }}">
+        </div>
 
-        <label for="brand">Brand:</label><br>
-        <input type="text" id="brand" name="brand" value="{{ old('brand') }}"><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="brand">برند:</label><br>
+            <input type="text" id="brand" name="brand" value="{{ old('brand') }}">
+        </div>
 
-        <label for="image">Product Image:</label><br>
-        <input type="file" id="image" name="image" accept="image/*"><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="image">تصویر محصول:</label><br>
+            <input type="file" id="image" name="image" accept="image/*">
+        </div>
 
-        @php
-            $categories = \App\Models\Category::all();
-        @endphp
-        <label for="categories">Categories:</label><br>
-        <select id="categories" name="categories[]" multiple>
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-        </select><br><br>
+        <div style="margin-bottom: 15px;">
+            @php
+                $categories = \App\Models\Category::all();
+            @endphp
+            <label for="categories">دسته‌بندی‌ها:</label><br>
+            <select id="categories" name="categories[]" multiple>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-        <button type="submit">Add Product</button>
+        <button type="submit" style="background-color: green; color: white; padding: 10px 20px;">افزودن
+            محصول</button>
     </form>
+</div>
 
+<div class="product-list-section" style="margin-top: 30px;">
+    <h2>لیست محصولات</h2>
 
-    <table class="table">
+    <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
         <thead>
-            <tr>
+            <tr style="background-color: #f4f4f4;">
                 <th>شناسه</th>
                 <th>تصویر</th>
                 <th>نام</th>
@@ -82,16 +109,100 @@
                     <td>{{ number_format($product->price) }} تومان</td>
                     <td>{{ $product->stock }}</td>
                     <td>
+                        {{-- فرم حذف محصول --}}
                         <form action="{{ route('product.delete', $product->id) }}" method="POST"
                             onsubmit="return confirm('آیا مطمئن هستید که می‌خواهید این محصول را حذف کنید؟');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">حذف</button>
+                            <button type="submit"
+                                style="background-color: red; color: white; padding: 5px 10px;">حذف</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+</div>
 
+<div class="edit-product-section" style="background-color: lightgray; padding: 20px;">
+    <h1>ویرایش محصول</h1>
+
+    {{-- نمایش پیام موفقیت --}}
+    @if (session('success'))
+        <p style="color: green;">{{ session('success') }}</p>
+    @endif
+
+    {{-- نمایش خطاها --}}
+    @if ($errors->any())
+        <ul style="color: red;">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
+    {{-- فرم ویرایش محصول --}}
+    <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+
+        <div style="margin-bottom: 15px;">
+            <label for="name">نام محصول:</label><br>
+            <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}" required>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="description">توضیحات:</label><br>
+            <textarea id="description" name="description" required>{{ old('description', $product->description) }}</textarea>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="price">قیمت:</label><br>
+            <input type="number" step="0.01" id="price" name="price" value="{{ old('price', $product->price) }}" required>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="stock">موجودی:</label><br>
+            <input type="number" id="stock" name="stock" value="{{ old('stock', $product->stock) }}" required>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="color">رنگ:</label><br>
+            <input type="text" id="color" name="color" value="{{ old('color', $product->color) }}">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="material">جنس:</label><br>
+            <input type="text" id="material" name="material" value="{{ old('material', $product->material) }}">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="brand">برند:</label><br>
+            <input type="text" id="brand" name="brand" value="{{ old('brand', $product->brand) }}">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="image">تصویر جدید:</label><br>
+            <input type="file" id="image" name="image" accept="image/*">
+            <br>
+            @if ($product->image)
+                <p>تصویر فعلی:</p>
+                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="100">
+            @endif
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="categories">دسته‌بندی‌ها:</label><br>
+            <select id="categories" name="categories[]" multiple>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" 
+                        {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <button type="submit" style="background-color: blue; color: white; padding: 10px 20px;">ذخیره تغییرات</button>
+    </form>
 </div>

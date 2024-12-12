@@ -18,12 +18,12 @@
         <input type="text" name="name" placeholder="name">
         <input type="email" name="email" placeholder="email">
         <input type="password" name="password" placeholder="password">
-        <input type="submit" value="add admin">
+        <input type="submit" style="background-color: green; color: white; padding: 10px 20px;" value="add admin">
     </form>
 
 
     <h1>delete user</h1>
-    <table class="table">
+    <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
         <thead>
             <tr>
                 <th>شناسه</th>
@@ -43,7 +43,7 @@
                             <form action="{{ route('admin.delete', $admin->id) }}" method="POST" onsubmit="return confirm('آیا مطمئن هستید که می‌خواهید ادمین {{ $admin->name }} را حذف کنید؟');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">حذف ادمین</button>
+                                <button type="submit" class="btn btn-danger" style="background-color: red; color: white; padding: 5px 10px;">حذف ادمین</button>
                             </form>
                         @else
                             <span class="text-muted">شما نمی‌توانید خودتان را حذف کنید</span>

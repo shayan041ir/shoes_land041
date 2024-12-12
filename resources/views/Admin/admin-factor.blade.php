@@ -18,7 +18,7 @@
 <br>
 <div class="add-admin">
 
-    <table class="table">
+    <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
         <thead>
             <tr>
                 <th>نام کاربر</th>

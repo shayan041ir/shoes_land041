@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Slider;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -91,23 +92,48 @@ class AdminController extends Controller
 
 
 
-    
+
 
 
 
     // تغییرات محصول
     public function editProduct($id)
     {
-        $product = Product::find($id);
-        return view('admin.editProduct', compact('product'));
+        $product = Product::with('categories')->findOrFail($id);
+        $categories = Category::all(); // لیست دسته‌بندی‌ها برای انتخاب
+        return view('Admin.edit-product', compact('product', 'categories'));
     }
+    
 
     public function updateProduct(Request $request, $id)
     {
-        $product = Product::find($id);
-        $product->update($request->all());
-        return redirect()->route('admin.dashboard');
+        $product = Product::findOrFail($id);
+
+        // اعتبارسنجی ورودی‌ها
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'color' => 'nullable|string|max:100',
+            'material' => 'nullable|string|max:100',
+            'brand' => 'nullable|string|max:100',
+        ]);
+
+        // آپلود تصویر (در صورت وجود)
+        if ($request->hasFile('image')) {
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+            $product->image = $request->file('image')->store('products', 'public');
+        }
+
+        // به‌روزرسانی فیلدها
+        $product->update($request->except('image'));
+
+        return redirect()->route('admindashboard')->with('success', 'محصول با موفقیت به‌روزرسانی شد!');
     }
+
 
     // مدیریت اطلاعات سایت
     public function updateSiteInfo(Request $request)
@@ -180,10 +206,9 @@ class AdminController extends Controller
     //     return view('Admin.admin-factor', compact('orders'));    
     // }
     public function showOrders()
-{
-    $orders = Order::with(['user', 'items.product'])->get();
+    {
+        $orders = Order::with(['user', 'items.product'])->get();
 
-    return view('Admin.admin-factor', compact('orders'));    
-}
-
+        return view('Admin.admin-factor', compact('orders'));
+    }
 }

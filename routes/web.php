@@ -43,7 +43,8 @@ Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name
 Route::delete('/Admin.admindashboard-deleteadmin/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 Route::post('/Admin.admindashboard-adduser', [AdminController::class, 'adduser'])->name('admin.adduser');
 Route::delete('/Admin.admindashboard-deleteuser/{id}', [AdminController::class, 'deleteUser'])->name('user.delete');
-
+Route::get('/admin-products/{id}/edit', [AdminController::class, 'editProduct'])->name('product.edit');
+Route::put('/admin-products/{id}', [AdminController::class, 'updateProduct'])->name('product.update');
 Route::get('/Admin.admindashboard-factor',[AdminController::class,'showOrders'])->name('factor.show');
 
 Route::get('/Admin.admindashboard-show-slider',[AdminController::class,'showSliderManagement'])->name('show-slider');
