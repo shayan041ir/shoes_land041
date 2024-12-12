@@ -91,6 +91,9 @@ class AdminController extends Controller
 
 
 
+    
+
+
 
     // تغییرات محصول
     public function editProduct($id)
@@ -112,6 +115,12 @@ class AdminController extends Controller
         // کد تغییرات اطلاعات سایت
         return redirect()->route('admin.dashboard');
     }
+
+
+
+
+
+
 
     // مدریت اسلایدر 
     public function showSliderManagement()
@@ -163,11 +172,18 @@ class AdminController extends Controller
 
 
 
+    // public function showOrders()
+    // {
+    //     // بارگذاری تمامی سفارشات به همراه اطلاعات کاربر و آیتم‌های سفارش
+    //     $orders = Order::with('user', 'orderItems.product')->get();
+    //     // ارسال داده‌ها به بلید
+    //     return view('Admin.admin-factor', compact('orders'));    
+    // }
     public function showOrders()
-    {
-        // بارگذاری تمامی سفارشات به همراه اطلاعات کاربر و آیتم‌های سفارش
-        $orders = Order::with('user', 'orderItems.product')->get();
+{
+    $orders = Order::with(['user', 'items.product'])->get();
 
-        // ارسال داده‌ها به بلید
-        return view('Admin.admin-factor', compact('orders'));    }
+    return view('Admin.admin-factor', compact('orders'));    
+}
+
 }
