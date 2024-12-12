@@ -11,7 +11,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {
     return view('home');

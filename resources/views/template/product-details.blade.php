@@ -1,6 +1,3 @@
-{{-- @php
-    $product = \App\Models\Product::findOrFail($id);
-@endphp --}}
 <div class="container">
     <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
 
@@ -13,19 +10,28 @@
             <p>{{ $product->description }}</p>
             <h3>قیمت: {{ number_format($product->price) }} تومان</h3>
             <p>موجودی: <strong>{{ $product->stock }}</strong> عدد</p>
-            <form action="{{ route('cart.add', $product->id) }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="quantity" class="form-label">تعداد:</label>
-                    <div class="input-group">
-                        <button type="button" class="btn btn-secondary" onclick="decreaseQuantity()">-</button>
-                        <input type="number" id="quantity" name="quantity" value="1" min="1"
-                            max="{{ $product->stock }}" class="form-control text-center">
-                        <button type="button" class="btn btn-secondary" onclick="increaseQuantity()">+</button>
+
+            @if (Auth::check())
+                <!-- فرم افزودن به سبد خرید -->
+                <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">تعداد:</label>
+                        <div class="input-group">
+                            <button type="button" class="btn btn-secondary" onclick="decreaseQuantity()">-</button>
+                            <input type="number" id="quantity" name="quantity" value="1" min="1"
+                                max="{{ $product->stock }}" class="form-control text-center">
+                            <button type="button" class="btn btn-secondary" onclick="increaseQuantity()">+</button>
+                        </div>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-primary">افزودن به سبد خرید</button>
-            </form>
+                    <button type="submit" class="btn btn-primary">افزودن به سبد خرید</button>
+                </form>
+            @else
+                <!-- پیام برای کاربران غیر وارد شده -->
+                <p class="text-danger">برای خرید این محصول ابتدا وارد حساب کاربری خود شویدیا ثبت نام بکنید.</p>
+                <a href="{{ route('login') }}" class="btn btn-success">ورود</a>/
+                <a href="{{ route('singup') }}">ثبت نام</a>
+            @endif
         </div>
     </div>
 
@@ -34,14 +40,22 @@
     <!-- بخش نظرات -->
     <h3>نظرات</h3>
     <div class="mb-4">
-        <form action="{{ route('comments.store', $product->id) }}" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label for="comment" class="form-label">ثبت نظر:</label>
-                <textarea name="comment" id="comment" rows="4" class="form-control" placeholder="نظر خود را وارد کنید"></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">ارسال نظر</button>
-        </form>
+        @if (Auth::check())
+            <!-- فرم ثبت نظر -->
+            <form action="{{ route('comments.store', $product->id) }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="comment" class="form-label">ثبت نظر:</label>
+                    <textarea name="comment" id="comment" rows="4" class="form-control" placeholder="نظر خود را وارد کنید"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">ارسال نظر</button>
+            </form>
+        @else
+            <!-- پیام برای کاربران غیر وارد شده -->
+            <p class="text-danger">برای خرید این محصول ابتدا وارد حساب کاربری خود شویدیا ثبت نام بکنید.</p>
+            <a href="{{ route('login') }}" class="btn btn-success">ورود</a>/
+            <a href="{{ route('singup') }}">ثبت نام</a>
+        @endif
     </div>
     <div>
         @forelse ($product->comments as $comment)

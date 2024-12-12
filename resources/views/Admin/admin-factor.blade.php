@@ -10,13 +10,14 @@
             'order_items.quantity as product_quantity',
         )
         ->get();
-
+        
     $totalSales = $orders->sum('total_price');
 @endphp
 
 
 <br>
 <div class="add-admin">
+
     <table class="table">
         <thead>
             <tr>
@@ -37,7 +38,7 @@
                 <tr>
                     <td>{{ $order->user_name }}</td>
                     <td>{{ $order->order_date }}</td>
-                    <td>{{ $order->product_name }} </td>
+                    <td>{{ $order->product_name ?? 'محصول حذف شده' }}</td>
                     <td>({{ $order->product_quantity }})</td>
                     <td>{{ number_format($order->total_price) }} تومان</td>
                     <td>{{ ucfirst($order->status) }}</td>
