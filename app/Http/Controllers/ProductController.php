@@ -109,4 +109,26 @@ class ProductController extends Controller
         // ارسال محصول به ویو
         return view('template.product-details', compact('product'));
     }
+
+    public function filterProducts(Request $request)
+    {
+        $query = Product::query();
+
+        // فیلتر بر اساس دسته‌بندی
+        if ($request->has('category') && $request->category !== 'all') {
+            $query->where('category_id', $request->category);
+        }
+
+        // جستجو بر اساس نام محصول
+        if ($request->has('search') && $request->search) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $products = $query->get();
+
+        // ارسال پاسخ به صورت JSON
+        return response()->json([
+            'products' => $products,
+        ]);
+    }
 }

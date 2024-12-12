@@ -55,6 +55,8 @@ Route::post('/Admin.admindashboard-slider',[AdminController::class, 'uploadSlide
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
 Route::delete('/Admin.admindashboard/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+Route::get('/home/products/filter', [ProductController::class, 'filterProducts'])->name('home.products.filter');
+
 
 Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
 Route::delete('/Admin.add-category/{id}', [CategoryController::class, 'destroy'])->name('category.delete');

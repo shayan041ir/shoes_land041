@@ -22,10 +22,10 @@
             <a href="{{ route('product.show', ['id' => $product->id]) }}">
                 <div class="product">
                     <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
-                        style="height: 40px; width: 40px;">
+                        style="height: 100px; width: 100px;">
                     <p>{{ $product->name }}</p>
                     <p>برند: {{ $product->brand }}</p>
-                    <p>قیمت: {{ $product->price }} تومان</p>
+                    <p>قیمت: {{ number_format($product->price) }} تومان</p>
                 </div>
             </a>
         @endforeach
@@ -42,18 +42,27 @@
                         category: filterCategory,
                         search: searchQuery
                     },
+                    beforeSend: function() {
+                        $('#products').html('<p>در حال بارگذاری...</p>');
+                    },
                     success: function(response) {
                         $('#products').html('');
-                        response.products.forEach(product => {
-                            $('#products').append(`
-                                <div class="product">
-                                    <img src="/storage/${product.image}" alt="${product.name}" style="height: 40px; width: 40px;">
-                                    <p>${product.name}</p>
-                                    <p>برند: ${product.brand}</p>
-                                    <p>قیمت: ${product.price} تومان</p>
-                                </div>
-                            `);
-                        });
+                        if (response.products.length > 0) {
+                            response.products.forEach(product => {
+                                $('#products').append(`
+                                    <a href="/product/show/${product.id}">
+                                        <div class="product">
+                                            <img src="/storage/${product.image}" alt="${product.name}" style="height: 100px; width: 100px;">
+                                            <p>${product.name}</p>
+                                            <p>برند: ${product.brand}</p>
+                                            <p>قیمت: ${product.price.toLocaleString()} تومان</p>
+                                        </div>
+                                    </a>
+                                `);
+                            });
+                        } else {
+                            $('#products').html('<p>هیچ محصولی یافت نشد.</p>');
+                        }
                     },
                     error: function() {
                         alert('مشکلی در واکشی داده‌ها رخ داده است!');
@@ -72,5 +81,46 @@
                 const filterCategory = $('#filter-category').val();
                 fetchProducts(filterCategory, searchQuery);
             });
+
+            // اجرای جستجو هنگام تایپ کردن در کادر جستجو (اختیاری)
+            $('#search-input').on('input', function() {
+                const searchQuery = $(this).val();
+                const filterCategory = $('#filter-category').val();
+                fetchProducts(filterCategory, searchQuery);
+            });
         });
     </script>
+
+    <!-- Style for Better UI -->
+    <style>
+        .search-bar, .filter-bar {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
