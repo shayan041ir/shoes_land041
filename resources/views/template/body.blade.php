@@ -21,7 +21,7 @@
         @forelse ($products as $product)
             <a href="{{ route('product.show', ['id' => $product->id]) }}">
                 <div class="product">
-                    <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
                         style="height: 100px; width: 100px;">
                     <p>{{ $product->name }}</p>
                     <p>برند: {{ $product->brand }}</p>
@@ -36,8 +36,9 @@
 
     <!-- AJAX Script -->
     <script>
+
         $(document).ready(function() {
-            function fetchProducts(filterCategory, searchQuery) {
+            function fetchProducts(filterCategory = 'all', searchQuery = '') {
                 $.ajax({
                     url: "{{ route('home.products.filter') }}",
                     type: "GET",
@@ -49,8 +50,9 @@
                         $('#products').html('<p>در حال بارگذاری...</p>');
                     },
                     success: function(response) {
+                        console.log(response); // برای بررسی داده‌های بازگشتی
                         $('#products').html('');
-                        if (response.products.length > 0) {
+                        if (response.products && response.products.length > 0) {
                             response.products.forEach(product => {
                                 $('#products').append(`
                             <a href="/product/show/${product.id}">
@@ -67,14 +69,13 @@
                             $('#products').html('<p>هیچ محصولی یافت نشد.</p>');
                         }
                     },
-                    error: function() {
+                    error: function(xhr, status, error) {
+                        console.error("Error: ", error);
+                        console.log(xhr.responseText);
                         alert('مشکلی در واکشی داده‌ها رخ داده است!');
                     }
                 });
             }
-
-            // بارگذاری محصولات پیش‌فرض در لود اولیه صفحه
-            fetchProducts();
 
             $('#search-button').on('click', function() {
                 const searchQuery = $('#search-input').val();
@@ -88,12 +89,8 @@
                 fetchProducts(filterCategory, searchQuery);
             });
 
-            // اجرای جستجو هنگام تایپ کردن در کادر جستجو (اختیاری)
-            $('#search-input').on('input', function() {
-                const searchQuery = $(this).val();
-                const filterCategory = $('#filter-category').val();
-                fetchProducts(filterCategory, searchQuery);
-            });
+            // بارگذاری پیش‌فرض
+            fetchProducts();
         });
     </script>
 

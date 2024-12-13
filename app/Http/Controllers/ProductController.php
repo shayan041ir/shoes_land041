@@ -112,21 +112,24 @@ class ProductController extends Controller
 
     public function filterProducts(Request $request)
     {
+        // شروع کوئری برای محصولات
         $query = Product::query();
 
-        // فیلتر بر اساس دسته‌بندی
-        if ($request->has('category') && $request->category !== 'all') {
-            $query->where('category_id', $request->category);
+        // بررسی فیلتر دسته‌بندی
+        if ($request->has('category') && $request->category !== 'all' && !empty($request->category)) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('category_id', $request->category);
+            });
         }
 
-        // جستجو بر اساس نام محصول
-        if ($request->has('search') && $request->search) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+        // بررسی فیلتر جستجو
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%');
         }
 
+        // گرفتن نتایج
         $products = $query->get();
 
-        // ارسال پاسخ به صورت JSON
         return response()->json([
             'products' => $products,
         ]);
