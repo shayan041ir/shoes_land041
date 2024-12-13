@@ -18,7 +18,7 @@
 
     <!-- Products -->
     <div id="products" class="products-grid">
-        @foreach ($products as $product)
+        @forelse ($products as $product)
             <a href="{{ route('product.show', ['id' => $product->id]) }}">
                 <div class="product">
                     <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
@@ -28,9 +28,12 @@
                     <p>قیمت: {{ number_format($product->price) }} تومان</p>
                 </div>
             </a>
-        @endforeach
+        @empty
+            <p>هیچ محصولی یافت نشد.</p>
+        @endforelse
     </div>
-    
+
+
     <!-- AJAX Script -->
     <script>
         $(document).ready(function() {
@@ -50,15 +53,15 @@
                         if (response.products.length > 0) {
                             response.products.forEach(product => {
                                 $('#products').append(`
-                                    <a href="/product/show/${product.id}">
-                                        <div class="product">
-                                            <img src="/storage/${product.image}" alt="${product.name}" style="height: 100px; width: 100px;">
-                                            <p>${product.name}</p>
-                                            <p>برند: ${product.brand}</p>
-                                            <p>قیمت: ${product.price.toLocaleString()} تومان</p>
-                                        </div>
-                                    </a>
-                                `);
+                            <a href="/product/show/${product.id}">
+                                <div class="product">
+                                    <img src="/storage/${product.image}" alt="${product.name}" style="height: 100px; width: 100px;">
+                                    <p>${product.name}</p>
+                                    <p>برند: ${product.brand}</p>
+                                    <p>قیمت: ${product.price.toLocaleString()} تومان</p>
+                                </div>
+                            </a>
+                        `);
                             });
                         } else {
                             $('#products').html('<p>هیچ محصولی یافت نشد.</p>');
@@ -69,6 +72,9 @@
                     }
                 });
             }
+
+            // بارگذاری محصولات پیش‌فرض در لود اولیه صفحه
+            fetchProducts();
 
             $('#search-button').on('click', function() {
                 const searchQuery = $('#search-input').val();
@@ -93,7 +99,8 @@
 
     <!-- Style for Better UI -->
     <style>
-        .search-bar, .filter-bar {
+        .search-bar,
+        .filter-bar {
             margin: 20px 0;
             display: flex;
             gap: 10px;

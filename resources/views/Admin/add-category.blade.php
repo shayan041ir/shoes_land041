@@ -28,7 +28,7 @@
         <label for="name">Category Name:</label><br>
         <input type="text" id="name" name="name" value="{{ old('name') }}" required><br><br>
 
-        <button type="submit">Add Category</button>
+        <button type="submit"  style="background-color: green; color: white; padding: 10px 20px;">Add Category</button>
     </form>
 
 
@@ -55,7 +55,7 @@
                             onsubmit="return confirm('Are you sure you want to delete this category?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">حذف</button>
+                            <button type="submit" class="btn btn-danger" style="background-color: red; color: white; padding: 5px 10px;">حذف</button>
                         </form>
                     </td>
                 </tr>
