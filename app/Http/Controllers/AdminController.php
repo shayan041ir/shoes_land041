@@ -214,14 +214,6 @@ class AdminController extends Controller
     }
 
 
-
-    // public function showOrders()
-    // {
-    //     // بارگذاری تمامی سفارشات به همراه اطلاعات کاربر و آیتم‌های سفارش
-    //     $orders = Order::with('user', 'orderItems.product')->get();
-    //     // ارسال داده‌ها به بلید
-    //     return view('Admin.admin-factor', compact('orders'));    
-    // }
     public function showOrders()
     {
         $orders = Order::with(['user', 'items.product'])->get();

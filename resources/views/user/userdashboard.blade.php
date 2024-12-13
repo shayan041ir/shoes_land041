@@ -96,6 +96,63 @@
 
     </div>
 
+    @php
+        $userId = auth()->id(); // گرفتن آیدی کاربر وارد شده
+        $orders = DB::table('orders')
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->leftJoin('order_items', 'orders.id', '=', 'order_items.order_id')
+            ->leftJoin('products', 'order_items.product_id', '=', 'products.id')
+            ->select(
+                'orders.*',
+                'users.name as user_name',
+                'products.name as product_name',
+                'order_items.quantity as product_quantity',
+                'order_items.price as product_price', // اضافه کردن قیمت هر محصول
+            )
+            ->where('orders.user_id', $userId) // فیلتر سفارش‌ها فقط برای کاربر وارد شده
+            ->get();
+    @endphp
+
+    <div class="user-dashboard">
+        <h3>سفارش‌های من</h3>
+        <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+                <tr>
+                    <th>تاریخ سفارش</th>
+                    <th>نام محصولات</th>
+                    <th>تعداد کل</th>
+                    <th>قیمت کلی</th>
+                    <th>وضعیت</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($orders as $order)
+                    <tr>
+                        <td>{{ $order->order_date }}</td>
+                        <td>{{ $order->product_name ?? 'محصول حذف شده' }}</td>
+                        <td>({{ $order->product_quantity }})</td>
+                        <td>{{ number_format($order->product_price * $order->product_quantity) }} تومان</td>
+                        <!-- محاسبه قیمت کل برای هر محصول -->
+                        <td class="order-status" data-order-id="{{ $order->id }}">ارسال شده</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // همه سلول‌های وضعیت را انتخاب کنید
+            const statusCells = document.querySelectorAll('.order-status');
+
+            // برای هر سلول وضعیت
+            statusCells.forEach(cell => {
+                setTimeout(() => {
+                    cell.textContent = 'تحویل داده شد';
+                }, 5000); // 5 ثانیه
+            });
+        });
+    </script>
 
 </body>
 
