@@ -21,8 +21,26 @@
         <input type="submit" style="background-color: green; color: white; padding: 10px 20px;" value="add admin">
     </form>
 
+    <h2>ویرایش اطلاعات ادمین</h2>
+    <form action="{{ route('admin.update') }}" method="POST">
+        @csrf
+        @method('PUT')
 
-    <h1>delete user</h1>
+        <label for="name">نام کاربری:</label>
+        <input type="text" id="name" name="name"  required>
+        <br>
+        <label for="password">رمز عبور جدید:</label>
+        <input type="password" id="password" name="password">
+        <br>
+
+        <label for="password_confirmation">تأیید رمز عبور:</label>
+        <input type="password" id="password_confirmation" name="password_confirmation">
+        <br>
+
+        <button type="submit">ویرایش</button>
+    </form>
+
+    <h1>delete admin</h1>
     <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
         <thead>
             <tr>
@@ -46,7 +64,7 @@
                                 <button type="submit" class="btn btn-danger" style="background-color: red; color: white; padding: 5px 10px;">حذف ادمین</button>
                             </form>
                         @else
-                            <span class="text-muted">شما نمی‌توانید خودتان را حذف کنید</span>
+                            <span class="text-muted" style="background-color: red; color: white; padding: 5px 10px;">شما نمی‌توانید خودتان را حذف کنید</span>
                         @endif
                     </td>
                 </tr>

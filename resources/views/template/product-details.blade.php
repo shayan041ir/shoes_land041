@@ -58,7 +58,7 @@
         @endif
     </div>
     <div>
-        @forelse ($product->comments as $comment)
+        @forelse ($product->comments->where('is_approved', true) as $comment)
             <div class="border p-3 mb-2">
                 <strong>{{ $comment->user->name }}</strong> گفت:
                 <p>{{ $comment->content }}</p>
@@ -67,7 +67,7 @@
         @empty
             <p>نظری برای این محصول ثبت نشده است.</p>
         @endforelse
-    </div>
+    </div>    
 </div>
 
 <script>

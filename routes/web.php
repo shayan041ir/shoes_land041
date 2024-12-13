@@ -40,6 +40,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');
 Route::post('/Admin.admindashboard', [AdminController::class, 'addadmin'])->name('admin.addadmin');
+Route::put('/admin/update', [AdminController::class, 'adminupdate'])->name('admin.update');
+
 Route::delete('/Admin.admindashboard-deleteadmin/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 Route::post('/Admin.admindashboard-adduser', [AdminController::class, 'adduser'])->name('admin.adduser');
 Route::delete('/Admin.admindashboard-deleteuser/{id}', [AdminController::class, 'deleteUser'])->name('user.delete');
@@ -73,7 +75,9 @@ Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
 Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comments.store');
-
+Route::get('/comments/pending', [CommentController::class, 'pendingComments'])->name('admin.comments.pending');
+Route::patch('/comments/{id}/approve', [CommentController::class, 'approve'])->name('admin.comments.approve');
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('admin.comments.destroy');
 
 
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');

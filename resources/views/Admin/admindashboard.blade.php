@@ -19,6 +19,7 @@
         $sliders = \App\Models\Slider::all();
         $users = \App\Models\User::all();
         $admins = \App\Models\Admin::all();
+        $Comments = \App\Models\Comment::all();
     @endphp
     <h1>Admin Dashboard</h1>
     <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
@@ -34,6 +35,9 @@
 
     {{-- add-product --}}
     @include('Admin.add-product')
+
+    {{-- comments --}}
+    @include('Admin.comments')
 
     {{-- factor --}}
     @include('Admin.admin-factor')

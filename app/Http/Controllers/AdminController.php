@@ -16,11 +16,6 @@ use App\Models\Order;
 
 class AdminController extends Controller
 {
-    // فقط ادمین‌ها می‌توانند به این متدها دسترسی داشته باشند
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:admin');  // فرض می‌کنیم سیستم احراز هویت جداگانه برای ادمین‌ها دارید
-    // }
 
     // نمایش صفحه داشبورد ادمین
     public function index()
@@ -46,17 +41,39 @@ class AdminController extends Controller
         return redirect()->route('admindashboard')->with('s', 'Admin added successfully!');
     }
 
+
+    public function adminupdate(Request $request)
+    {
+        // اعتبارسنجی اطلاعات ورودی
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'password' => 'nullable|string|min:4|confirmed',
+        ]);
+
+        $admin = Auth::guard('admin')->user();
+
+        if (!$admin) {
+            return redirect()->back()->withErrors(['error' => 'ادمین یافت نشد.']);
+        }
+
+        $admin->name = $request->input('name');
+
+        // در صورت وجود رمز عبور جدید، رمز عبور را به‌روز‌رسانی کنید
+        if ($request->filled('password')) {
+            $admin->password = Hash::make($request->input('password'));
+        }
+
+        // ذخیره تغییرات
+        $admin->save();
+
+        // بازگرداندن پیام موفقیت
+        return redirect()->back()->with('success', 'اطلاعات با موفقیت به‌روز شد.');
+    }
+
+
     public function delete($id)
     {
         $admin = Admin::findOrFail($id); // ادمین مورد نظر را پیدا کنید
-
-        // // ثبت اطلاعات ادمین در لاگ برای ردیابی
-        // \Log::info('Admin deleted:', [
-        //     'id' => $admin->id,
-        //     'name' => $admin->name,
-        //     'email' => $admin->email,
-        // ]);
-
         // حذف ادمین
         $admin->delete();
 
@@ -103,7 +120,7 @@ class AdminController extends Controller
         $categories = Category::all(); // لیست دسته‌بندی‌ها برای انتخاب
         return view('Admin.edit-product', compact('product', 'categories'));
     }
-    
+
 
     public function updateProduct(Request $request, $id)
     {
