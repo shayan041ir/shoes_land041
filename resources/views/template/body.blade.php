@@ -36,7 +36,7 @@
 
     <!-- AJAX Script -->
     <script>
-
+        const productShowRoute = "{{ url('product/') }}";
         $(document).ready(function() {
             function fetchProducts(filterCategory = 'all', searchQuery = '') {
                 $.ajax({
@@ -55,7 +55,7 @@
                         if (response.products && response.products.length > 0) {
                             response.products.forEach(product => {
                                 $('#products').append(`
-                            <a href="/product/show/${product.id}">
+                            <a href="${productShowRoute}/${product.id}">
                                 <div class="product">
                                     <img src="/storage/${product.image}" alt="${product.name}" style="height: 100px; width: 100px;">
                                     <p>${product.name}</p>
