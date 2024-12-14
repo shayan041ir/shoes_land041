@@ -1,6 +1,6 @@
     <div class="container">
         <h2>سبد خرید شما</h2>
-    <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
+        <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
 
         @if (session('cart') && count(session('cart')) > 0)
             <table class="table">
@@ -35,6 +35,8 @@
                             <td>
                                 @if (session('cart') && count(session('cart')) > 0)
                                     <div class="text-end">
+                                        {{-- <button type="submit" class="btn btn-success"
+                                            onclick="location.href='{{ route('checkout') }}';">پرداخت</button> --}}
                                         <form action="{{ route('checkout') }}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-success">پرداخت</button>

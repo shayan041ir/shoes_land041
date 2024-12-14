@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
 
 class CartController extends Controller
 {
@@ -49,5 +50,20 @@ class CartController extends Controller
             session()->put('cart', $cart);
         }
         return redirect()->back()->with('success', 'محصول از سبد خرید حذف شد!');
+    }
+
+
+    public function payment(Order $order)
+    {
+        $userName = auth()->user()->name; // فرض بر این است که کاربر وارد شده است.
+        return view('template.payment', compact('order','userName'));
+    }
+
+    public function completePayment(Request $request)
+    {
+        session()->forget('cart'); // پاک کردن سبد خرید پس از پرداخت
+        session()->forget('total_price');
+
+        return redirect()->route('home')->with('success', 'پرداخت با موفقیت انجام شد!');
     }
 }

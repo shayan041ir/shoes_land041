@@ -40,10 +40,10 @@ class CheckoutController extends Controller
         session()->forget('cart');
 
         // هدایت به صفحه تایید خرید
-        return redirect()->route('order.success', $order->id);
+        return redirect()->route('payment', $order->id);
     }
     public function success(Order $order)
     {
-        return view('template.order-success', compact('order'));
+        return view('template.payment', compact('order'));
     }
 }

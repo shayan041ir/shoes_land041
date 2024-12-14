@@ -74,6 +74,10 @@ Route::post('/cart/{id}', [CartController::class, 'addToCart'])->name('cart.add'
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
+Route::get('/payment', [CartController::class, 'payment'])->name('payment');
+Route::post('/payment/complete', [CartController::class, 'completePayment'])->name('payment.complete');
+
+
 Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comments.store');
 Route::get('/comments/pending', [CommentController::class, 'pendingComments'])->name('admin.comments.pending');
 Route::patch('/comments/{id}/approve', [CommentController::class, 'approve'])->name('admin.comments.approve');
@@ -81,4 +85,4 @@ Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('ad
 
 
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
-Route::get('/order/success/{order}', [CheckoutController::class, 'success'])->name('order.success');
+Route::get('/peyment/{order}', [CheckoutController::class, 'success'])->name('order.success');
