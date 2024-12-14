@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,17 +24,25 @@ class CheckoutController extends Controller
             'total_price' => array_reduce($cart, function ($sum, $item) {
                 return $sum + ($item['quantity'] * $item['price']);
             }, 0),
-        ]); 
+        ]);
         $order->save();
 
-        // افزودن آیتم‌های سفارش به دیتابیس
+        // افزودن آیتم‌های سفارش به دیتابیس و به‌روزرسانی موجودی محصول
         foreach ($cart as $productId => $item) {
+            // ذخیره آیتم سفارش
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $productId,
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
             ]);
+
+            // به‌روزرسانی موجودی محصول
+            $product = Product::find($productId);
+            if ($product) {
+                $product->stock = max(0, $product->stock - $item['quantity']); // جلوگیری از موجودی منفی
+                $product->save();
+            }
         }
 
         // خالی کردن سبد خرید
@@ -41,9 +50,5 @@ class CheckoutController extends Controller
 
         // هدایت به صفحه تایید خرید
         return redirect()->route('payment', $order->id);
-    }
-    public function success(Order $order)
-    {
-        return view('template.payment', compact('order'));
     }
 }
