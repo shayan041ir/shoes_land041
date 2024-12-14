@@ -76,6 +76,7 @@ Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('ca
 
 Route::get('/payment', [CartController::class, 'payment'])->name('payment');
 Route::post('/payment/complete', [CartController::class, 'completePayment'])->name('payment.complete');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
 
 
 Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comments.store');
@@ -84,5 +85,3 @@ Route::patch('/comments/{id}/approve', [CommentController::class, 'approve'])->n
 Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('admin.comments.destroy');
 
 
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
-Route::get('/peyment/{order}', [CheckoutController::class, 'success'])->name('order.success');

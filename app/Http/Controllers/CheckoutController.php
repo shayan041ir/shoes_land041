@@ -45,6 +45,14 @@ class CheckoutController extends Controller
             }
         }
 
+        // محاسبه مجموع مبلغ
+        $total_price = array_reduce($cart, function ($sum, $item) {
+            return $sum + ($item['quantity'] * $item['price']);
+        }, 0);
+
+        // ذخیره در سشن
+        session(['total_price' => $total_price]);
+
         // خالی کردن سبد خرید
         session()->forget('cart');
 

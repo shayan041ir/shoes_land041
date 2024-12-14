@@ -53,10 +53,11 @@ class CartController extends Controller
     }
 
 
-    public function payment(Order $order)
+    public function payment()
     {
         $userName = auth()->user()->name; // فرض بر این است که کاربر وارد شده است.
-        return view('template.payment', compact('order','userName'));
+        $total_price = session('total_price', 0);
+        return view('template.payment', compact('total_price','userName'));
     }
 
     public function completePayment(Request $request)

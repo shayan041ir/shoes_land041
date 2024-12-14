@@ -65,7 +65,7 @@
     <div class="container">
         <h1>صفحه پرداخت</h1>
         <p>نام کاربر: <strong>{{ $userName }}</strong></p>
-        <p>مجموع مبلغ: <strong>{{ number_format($order->total_price) }} تومان</strong></p>
+        <p>مجموع مبلغ: <strong>{{ number_format($total_price) }} تومان</strong></p>
 
         <form action="{{ route('payment.complete') }}" method="POST" onsubmit="handleSubmit(event)">
             @csrf
