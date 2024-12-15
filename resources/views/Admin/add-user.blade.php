@@ -1,5 +1,5 @@
 <div class="add-admin">
-    <h1>add user</h1>
+    <h1>افزودن کاربر</h1>
     @if (session('s'))
         <h6>{{ session('s') }}</h6>
     @endif
@@ -18,11 +18,11 @@
         <input type="text" name="name" placeholder="name">
         <input type="email" name="email" placeholder="email">
         <input type="password" name="password" placeholder="password">
-        <input type="submit" style="background-color: green; color: white; padding: 10px 20px;" value="add admin">
+        <button type="submit" class="btn btn-success">افزودن</button>
     </form>
 
 
-    <h1>delete user</h1>
+    <h1>حذف کاربر</h1>
     <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
         <thead>
             <tr>

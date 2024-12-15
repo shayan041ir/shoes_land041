@@ -1,5 +1,5 @@
 <div class="add-admin">
-    <h1>add admin</h1>
+    <h1>افزودن ادمین</h1>
     @if (session('s'))
         <h6>{{ session('s') }}</h6>
     @endif
@@ -34,7 +34,7 @@
 
     </form>
 
-    <h1>delete admin</h1>
+    <h1>حذف ادمین</h1>
     <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
         <thead>
             <tr>

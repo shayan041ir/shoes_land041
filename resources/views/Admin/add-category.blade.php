@@ -8,13 +8,13 @@
         <p>No categories available.</p>
     @endif
 
-    <h1>Add New Category</h1>
+    <h1>افزودن دسته‌بندی‌ها</h1>
     <form action="{{ route('categories.store') }}" method="POST">
         @csrf
         <label for="name">Category Name:</label><br>
         <input type="text" id="name" name="name" value="{{ old('name') }}" required><br><br>
 
-        <button type="submit"  style="background-color: green; color: white; padding: 10px 20px;">Add Category</button>
+        <button type="submit" class="btn btn-success">افزودن دسته‌بندی‌</button>
     </form>
 
 
