@@ -1,38 +1,35 @@
-<!-- Hero Section -->
-<section id="hero-section" class="mb-5">
-    <div id="home-slider" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <!-- Slider Items -->
-            <div class="carousel-inner">
-                @foreach ($sliders as $index => $slider)
-                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                        <img src="{{ Storage::url($slider->image_path) }}" class="d-block w-100" alt="Slider Image">
-                        @if ($slider->product)
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>{{ $slider->product->name }}</h5>
-                                {{-- <p>{{ $slider->product->description }}</p> --}}
-                                <a href="{{ route('product.show', $slider->product->id) }}" class="btn btn-primary">مشاهده محصول</a>
-                            </div>
-                        @endif
-                    </div>
-                @endforeach
-            <div class="carousel-item">
-                <img src="{{ asset('assets/images/slider3.jpg') }}" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h1>تخفیف‌های استثنایی فقط تا پایان ماه</h1>
-                    <p>همین حالا سفارش دهید!</p>
-                    <a href="/products" class="btn btn-warning">اکنون خرید کنید</a>
-                </div>
+<!-- Brands Section -->
+<section id="brands-section" class="my-5">
+    <div class="container text-center">
+        <h2 class="mb-4">برندهایی که با آنها همکاری می‌کنیم</h2>
+        <div class="brand-carousel d-flex align-items-center overflow-hidden">
+            <div class="d-flex" style="animation: scrollBrands 10s linear infinite;">
+                <img src="{{ asset('assets/images/brand1.png') }}" alt="Brand 1" class="mx-3" style="height: 80px;">
+                <img src="{{ asset('assets/images/brand2.png') }}" alt="Brand 2" class="mx-3" style="height: 80px;">
+                <img src="{{ asset('assets/images/brand3.png') }}" alt="Brand 3" class="mx-3" style="height: 80px;">
+                <img src="{{ asset('assets/images/brand4.png') }}" alt="Brand 4" class="mx-3" style="height: 80px;">
+                <img src="{{ asset('assets/images/brand5.png') }}" alt="Brand 5" class="mx-3" style="height: 80px;">
             </div>
         </div>
-        <!-- Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#home-slider" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">قبلی</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#home-slider" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">بعدی</span>
-        </button>0
     </div>
 </section>
+
+<style>
+    #brands-section {
+        background-color: #f9f9f9;
+        padding: 40px 0;
+    }
+    .brand-carousel {
+        position: relative;
+        height: 100px;
+        overflow: hidden;
+    }
+    @keyframes scrollBrands {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+</style>

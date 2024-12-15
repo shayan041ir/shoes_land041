@@ -1,4 +1,5 @@
-<div id="home-slider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style="height: 400px; width: 400px;">
+<section id="hero-section" class="mb-5">
+<div id="home-slider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style="height: 700px; width: 700px;">
     <div class="carousel-inner">
         @foreach ($sliders as $index => $slider)
             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
@@ -24,3 +25,5 @@
         <span class="visually-hidden">بعدی</span>
     </button>
 </div>
+
+</section>
