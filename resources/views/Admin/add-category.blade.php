@@ -1,19 +1,5 @@
-{{-- <div class="categories" style="background-color: gray">
-    <h1>Categories</h1>
 
-    @if ($categories->isEmpty())
-        <p>No categories available.</p>
-    @else
-        <ul>
-            @foreach ($categories as $category)
-                <li>{{ $category->name }}</li>
-            @endforeach
-        </ul>
-    @endif
-</div> --}}
-
-
-<div class="add-category" style="background-color: gray">
+<div class="container">
     @php
         $categories = \App\Models\Category::all();
     @endphp

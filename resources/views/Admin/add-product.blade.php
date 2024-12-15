@@ -1,8 +1,78 @@
 {{-- add-category --}}
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1,
+    h2 {
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+    }
+
+    .form-group input[type="file"] {
+        padding: 0;
+    }
+
+
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table th,
+    table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table th {
+        background-color: #f4f4f4;
+    }
+
+    img {
+        border-radius: 4px;
+    }
+</style>
 @include('Admin.add-category')
 
 <br>
-<div class="add-product-section" style="background-color: gray; padding: 20px;">
+<div class="container">
     <h1>افزودن محصول</h1>
 
     {{-- نمایش پیام موفقیت --}}
@@ -79,7 +149,7 @@
     </form>
 </div>
 
-<div class="product-list-section" style="margin-top: 30px;">
+<div class="container" style="margin-top: 30px;">
     <h2>لیست محصولات</h2>
 
     <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
@@ -124,7 +194,7 @@
     </table>
 </div>
 
-<div class="edit-product-section" style="background-color: lightgray; padding: 20px;">
+<div class="container" style="background-color: rgb(255, 255, 255); padding: 20px;">
     <h1>ویرایش محصول</h1>
 
     {{-- نمایش پیام موفقیت --}}
@@ -158,12 +228,14 @@
 
         <div style="margin-bottom: 15px;">
             <label for="price">قیمت:</label><br>
-            <input type="number" step="0.01" id="price" name="price" value="{{ old('price', $product->price) }}" required>
+            <input type="number" step="0.01" id="price" name="price"
+                value="{{ old('price', $product->price) }}" required>
         </div>
 
         <div style="margin-bottom: 15px;">
             <label for="stock">موجودی:</label><br>
-            <input type="number" id="stock" name="stock" value="{{ old('stock', $product->stock) }}" required>
+            <input type="number" id="stock" name="stock" value="{{ old('stock', $product->stock) }}"
+                required>
         </div>
 
         <div style="margin-bottom: 15px;">
@@ -195,7 +267,7 @@
             <label for="categories">دسته‌بندی‌ها:</label><br>
             <select id="categories" name="categories[]" multiple>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" 
+                    <option value="{{ $category->id }}"
                         {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
                         {{ $category->name }}
                     </option>
@@ -203,6 +275,7 @@
             </select>
         </div>
 
-        <button type="submit" style="background-color: blue; color: white; padding: 10px 20px;">ذخیره تغییرات</button>
+        <button type="submit" style="background-color: blue; color: white; padding: 10px 20px;">ذخیره
+            تغییرات</button>
     </form>
 </div>

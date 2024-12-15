@@ -18,7 +18,8 @@
         <input type="text" name="name" placeholder="name">
         <input type="email" name="email" placeholder="email">
         <input type="password" name="password" placeholder="password">
-        <input type="submit" style="background-color: green; color: white; padding: 10px 20px;" value="add admin">
+        <button type="submit" class="btn btn-success">افزودن</button>
+
     </form>
 
     <h2>ویرایش اطلاعات ادمین</h2>
@@ -26,18 +27,11 @@
         @csrf
         @method('PUT')
 
-        <label for="name">نام کاربری:</label>
-        <input type="text" id="name" name="name"  required>
-        <br>
-        <label for="password">رمز عبور جدید:</label>
-        <input type="password" id="password" name="password">
-        <br>
+        <input type="text" id="name" name="name" placeholder="name" required>
+        <input type="password" id="password" name="password" placeholder="email">
+        <input type="password" id="password_confirmation"placeholder="password" name="password_confirmation">
+        <button type="submit" class="btn btn-success">ویرایش</button>
 
-        <label for="password_confirmation">تأیید رمز عبور:</label>
-        <input type="password" id="password_confirmation" name="password_confirmation">
-        <br>
-
-        <button type="submit">ویرایش</button>
     </form>
 
     <h1>delete admin</h1>
@@ -57,25 +51,29 @@
                     <td>{{ $admin->name }}</td>
                     <td>{{ $admin->email }}</td>
                     <td>
-                        @if (auth()->id() !== $admin->id) <!-- جلوگیری از حذف ادمین جاری -->
-                            <form action="{{ route('admin.delete', $admin->id) }}" method="POST" onsubmit="return confirm('آیا مطمئن هستید که می‌خواهید ادمین {{ $admin->name }} را حذف کنید؟');">
+                        @if (auth()->id() !== $admin->id)
+                            <!-- جلوگیری از حذف ادمین جاری -->
+                            <form action="{{ route('admin.delete', $admin->id) }}" method="POST"
+                                onsubmit="return confirm('آیا مطمئن هستید که می‌خواهید ادمین {{ $admin->name }} را حذف کنید؟');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" style="background-color: red; color: white; padding: 5px 10px;">حذف ادمین</button>
+                                <button type="submit" class="btn btn-danger"
+                                    style="background-color: red; color: white; padding: 5px 10px;">حذف ادمین</button>
                             </form>
                         @else
-                            <span class="text-muted" style="background-color: red; color: white; padding: 5px 10px;">شما نمی‌توانید خودتان را حذف کنید</span>
+                            <span class="text-muted" style="background-color: red; color: white; padding: 5px 10px;">شما
+                                نمی‌توانید خودتان را حذف کنید</span>
                         @endif
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    
+
     <script>
         function confirmDelete(userName) {
             return confirm(`آیا مطمئن هستید که می‌خواهید ادمین ${userName} را حذف کنید؟`);
         }
-    </script>    
+    </script>
 
 </div>
