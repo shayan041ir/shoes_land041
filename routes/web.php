@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\BrandController;
 
 Route::get('/', function () {
     return view('home');
@@ -19,9 +20,9 @@ Route::get('/', function () {
 Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::get('home/products', [ProductController::class, 'insertP'])->name('home.products.filter');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
-Route::get('home/hero-section',function () {
-    return view('template.hero-section');
-})->name('hero-section');
+Route::get('home/brands',function () {
+    return view('template.brands');
+})->name('brands');
 
 Route::get('/about', function () {
     return view('template.about');
@@ -55,6 +56,16 @@ Route::get('/Admin.admindashboard-show-slider',[AdminController::class,'showSlid
 Route::delete('/Admin.admindashboard-delete-slider/{id}', [AdminController::class, 'deleteSlider'])->name('slider.delete');
 Route::post('/Admin.admindashboard-slider',[AdminController::class, 'uploadSlider'])->name('admin.slider.upload');
 
+// نمایش لیست برندها
+Route::get('admin/brands', [BrandController::class, 'index'])->name('admin.brands.index');
+// ذخیره برند جدید
+Route::post('admin/brands', [BrandController::class, 'store'])->name('admin.brands.store');
+// نمایش فرم ویرایش برند
+Route::get('admin/brands/{brand}/edit', [BrandController::class, 'edit'])->name('admin.brands.edit');
+// به‌روزرسانی اطلاعات برند
+Route::put('admin/brands/{brand}', [BrandController::class, 'update'])->name('admin.brands.update');
+// حذف برند
+Route::delete('admin/brands/{brand}', [BrandController::class, 'destroy'])->name('admin.brands.destroy');
 
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');

@@ -10,9 +10,9 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Middleware;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Order;
+use App\Http\Middleware;
 
 class AdminController extends Controller
 {

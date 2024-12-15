@@ -4,11 +4,9 @@
         <h2 class="mb-4">برندهایی که با آنها همکاری می‌کنیم</h2>
         <div class="brand-carousel d-flex align-items-center overflow-hidden">
             <div class="d-flex" style="animation: scrollBrands 10s linear infinite;">
-                <img src="{{ asset('assets/images/brand1.png') }}" alt="Brand 1" class="mx-3" style="height: 80px;">
-                <img src="{{ asset('assets/images/brand2.png') }}" alt="Brand 2" class="mx-3" style="height: 80px;">
-                <img src="{{ asset('assets/images/brand3.png') }}" alt="Brand 3" class="mx-3" style="height: 80px;">
-                <img src="{{ asset('assets/images/brand4.png') }}" alt="Brand 4" class="mx-3" style="height: 80px;">
-                <img src="{{ asset('assets/images/brand5.png') }}" alt="Brand 5" class="mx-3" style="height: 80px;">
+                @foreach ($brands as $brand)
+                    <img src="{{ Storage::url($brand->logo) }}" alt="{{ $brand->name }}" class="mx-3" style="height: 80px;">
+                @endforeach
             </div>
         </div>
     </div>

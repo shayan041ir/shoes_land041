@@ -4,6 +4,7 @@
     $users = \App\Models\User::all();
     $admins = \App\Models\Admin::all();
     $Comments = \App\Models\Comment::all();
+    $brands = \App\Models\Brand::all();
     $orders = DB::table('orders')
         ->join('users', 'orders.user_id', '=', 'users.id')
         ->leftJoin('order_items', 'orders.id', '=', 'order_items.order_id')
@@ -17,6 +18,18 @@
         ->get();
 
     $totalSales = $orders->sum('total_price');
+    // تعداد کاربران در ماه جاری
+    $currentMonthUsers = \App\Models\User::whereMonth('created_at', now()->month)
+        ->whereYear('created_at', now()->year)
+        ->count();
+
+    // تعداد کاربران در ماه گذشته
+    $lastMonthUsers = \App\Models\User::whereMonth('created_at', now()->subMonth()->month)
+        ->whereYear('created_at', now()->subMonth()->year)
+        ->count();
+
+    // درصد رشد ماهانه
+    $monthlyGrowth = $lastMonthUsers > 0 ? (($currentMonthUsers - $lastMonthUsers) / $lastMonthUsers) * 100 : 0;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -127,7 +140,6 @@
             color: #343a40;
             cursor: pointer;
         }
-    
     </style>
 </head>
 
@@ -154,7 +166,7 @@
                 <div class="col-md-4">
                     <div class="card text-center p-3">
                         <h5><i class="fas fa-users"></i> Total Users</h5>
-                        <p class="mt-2">1200</p>
+                        <p class="mt-2">{{ $users->count() }}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -166,7 +178,7 @@
                 <div class="col-md-4">
                     <div class="card text-center p-3">
                         <h5><i class="fas fa-chart-line"></i> Monthly Growth</h5>
-                        <p class="mt-2">8%</p>
+                        <p class="mt-2">{{ round($monthlyGrowth, 2) }}%</p>
                     </div>
                 </div>
             </div>
@@ -195,6 +207,10 @@
                             Product</button>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="brands-tab" data-bs-toggle="tab" data-bs-target="#brands"
+                            type="button" role="tab" aria-controls="brands" aria-selected="false">Brands</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <button class="nav-link" id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments"
                             type="button" role="tab" aria-controls="comments"
                             aria-selected="false">Comments</button>
@@ -218,6 +234,9 @@
                     </div>
                     <div class="tab-pane fade" id="add-product" role="tabpanel" aria-labelledby="add-product-tab">
                         @include('Admin.add-product')
+                    </div>
+                    <div class="tab-pane fade" id="brands" role="tabpanel" aria-labelledby="comments-tab">
+                        @include('Admin.adminBrands')
                     </div>
                     <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
                         @include('Admin.comments')
