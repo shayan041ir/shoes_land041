@@ -12,6 +12,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\BrandController;
+use GuzzleHttp\Psr7\Request;
 
 Route::get('/', function () {
     return view('home');
@@ -20,7 +21,7 @@ Route::get('/', function () {
 Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::get('home/products', [ProductController::class, 'insertP'])->name('home.products.filter');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
-Route::get('home/brands',function () {
+Route::get('home/brands', function () {
     return view('template.brands');
 })->name('brands');
 
@@ -50,11 +51,11 @@ Route::post('/Admin.admindashboard-adduser', [AdminController::class, 'adduser']
 Route::delete('/Admin.admindashboard-deleteuser/{id}', [AdminController::class, 'deleteUser'])->name('user.delete');
 Route::get('/admin-products/{id}/edit', [AdminController::class, 'editProduct'])->name('product.edit');
 Route::put('/admin-products/{id}', [AdminController::class, 'updateProduct'])->name('product.update');
-Route::get('/Admin.admindashboard-factor',[AdminController::class,'showOrders'])->name('factor.show');
+Route::get('/Admin.admindashboard-factor', [AdminController::class, 'showOrders'])->name('factor.show');
 
-Route::get('/Admin.admindashboard-show-slider',[AdminController::class,'showSliderManagement'])->name('show-slider');
+Route::get('/Admin.admindashboard-show-slider', [AdminController::class, 'showSliderManagement'])->name('show-slider');
 Route::delete('/Admin.admindashboard-delete-slider/{id}', [AdminController::class, 'deleteSlider'])->name('slider.delete');
-Route::post('/Admin.admindashboard-slider',[AdminController::class, 'uploadSlider'])->name('admin.slider.upload');
+Route::post('/Admin.admindashboard-slider', [AdminController::class, 'uploadSlider'])->name('admin.slider.upload');
 
 // نمایش لیست برندها
 Route::get('admin/brands', [BrandController::class, 'index'])->name('admin.brands.index');
@@ -98,3 +99,7 @@ Route::patch('/comments/{id}/approve', [CommentController::class, 'approve'])->n
 Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('admin.comments.destroy');
 
 
+Route::post('contact', function () {
+    // ارسال پیام تشکر یا هر پردازشی
+    return view('template.contact')->with('message', 'Thank you for your message!');
+})->name('contact');

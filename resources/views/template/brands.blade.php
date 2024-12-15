@@ -14,7 +14,7 @@
 
 <style>
     #brands-section {
-        background-color: #f9f9f9;
+        background-color: #ffffff;
         padding: 40px 0;
     }
     .brand-carousel {
@@ -27,7 +27,7 @@
             transform: translateX(0);
         }
         100% {
-            transform: translateX(-100%);
+            transform: translateX(-300%);
         }
     }
 </style>

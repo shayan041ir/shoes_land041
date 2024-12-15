@@ -18,38 +18,38 @@
 
         <main>
             <section>
-                <h2>Get in Touch</h2>
-                <p>If you have any questions, feel free to reach out to us via the form below or using the contact information provided.</p>
+                <h2>با ما در ارتباط باشید</h2>
+                <p>اگر سوالی دارید یا به مشاوره نیاز دارید، لطفاً با ما تماس بگیرید. تیم ما آماده پاسخگویی به شما در
+                    روزهای کاری (شنبه تا پنج‌شنبه) از ساعت ۹ صبح تا ۶ عصر می‌باشد.</p>
             </section>
 
             <section>
-                <h2>Contact Information</h2>
+                <h2>اطلاعات تماس</h2>
                 <ul>
-                    <li><strong>Phone:</strong> +1 234 567 890</li>
-                    <li><strong>Email:</strong> support@example.com</li>
-                    <li><strong>Address:</strong> 123 Main Street, City, Country</li>
+                    <li><strong>تلفن:</strong> +98 41 1234 5678</li>
+                    <li><strong>ایمیل:</strong> support@shoesland.com</li>
+                    <li><strong>آدرس:</strong> خیابان نوآوری، شماره ۱۲۳، تهران، ایران</li>
                 </ul>
             </section>
 
             <section>
-                <h2>Our Location</h2>
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.123456789012!2d-123.456789012!3d37.123456789012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f123456789012%3A0x1234567890123456!2sYour+Company+Location!5e0!3m2!1sen!2s!4v1681234567890" 
-                    width="100%" 
-                    height="300" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy"></iframe>
+                <h2>پرسش‌های متداول</h2>
+                <p><strong>س:</strong> چگونه می‌توانم درخواست مشاوره دهم؟<br><strong>پ:</strong> لطفاً فرم تماس را پر
+                    کنید یا به آدرس email@yourcompany.com ایمیل بزنید.</p>
+                <p><strong>س:</strong> ساعات کاری شما چگونه است؟<br><strong>پ:</strong> شنبه تا پنج‌شنبه، ساعت ۹ صبح تا
+                    ۶ عصر.</p>
             </section>
 
             <section>
-                <h2>Frequently Asked Questions</h2>
-                <p><strong>Q:</strong> How can I contact support?<br><strong>A:</strong> You can email us at support@example.com or call us.</p>
-                <p><strong>Q:</strong> What are your working hours?<br><strong>A:</strong> Monday to Friday, 9:00 AM - 6:00 PM.</p>
+                <h2>موقعیت ما</h2>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.888152928845!2d46.2928113!3d38.0799671!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDA0JzQ3LjkiTiA0NsKwMTcnMzMuMSJF!5e0!3m2!1sen!2s!4v1681234567890"
+                    width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
             </section>
-
             <section>
-                <form action="contact.php" method="post">
+                <form action="{{ route('contact') }}" method="post">
+                    @csrf
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required><br>
 

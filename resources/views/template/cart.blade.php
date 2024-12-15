@@ -1,55 +1,101 @@
-    <div class="container">
-        <h2>سبد خرید شما</h2>
-        <button onclick="location.href='{{ route('home') }}';">Back to Home</button>
+<style>
+    body {
+        font-family: 'Vazir', sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+    }
 
-        @if (session('cart') && count(session('cart')) > 0)
-            <table class="table">
-                <thead>
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+    }
+
+    h2 {
+        color: #4a90e2;
+        margin-bottom: 20px;
+    }
+
+    .table img {
+        border-radius: 8px;
+    }
+
+    .btn-primary,
+    .btn-danger,
+    .btn-success {
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+    .text-end {
+        text-align: end;
+    }
+
+    .btn-back {
+        margin-bottom: 20px;
+    }
+</style>
+<div class="container">
+    <button class="btn btn-secondary btn-back" onclick="location.href='{{ route('home') }}';">بازگشت به خانه</button>
+    <h2>سبد خرید شما</h2>
+
+    @if (session('cart') && count(session('cart')) > 0)
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>تصویر</th>
+                    <th>نام محصول</th>
+                    <th>تعداد</th>
+                    <th>قیمت</th>
+                    <th>مجموع</th>
+                    <th>عملیات</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (session('cart') as $id => $item)
                     <tr>
-                        <th>تصویر</th>
-                        <th>نام محصول</th>
-                        <th>تعداد</th>
-                        <th>قیمت</th>
-                        <th>مجموع</th>
-                        <th>عملیات</th>
-                        <th>عملیات</th>
+                        <td><img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" width="50"></td>
+                        <td>{{ $item['name'] }}</td>
+                        <td>{{ $item['quantity'] }}</td>
+                        <td>{{ number_format($item['price']) }} تومان</td>
+                        <td>{{ number_format($item['quantity'] * $item['price']) }} تومان</td>
+                        <td>
+                            <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">حذف</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{ route('checkout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-success">پرداخت</button>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (session('cart') as $id => $item)
-                        <tr>
-                            <td><img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}"
-                                    width="50">
-                            </td>
-                            <td>{{ $item['name'] }}</td>
-                            <td>{{ $item['quantity'] }}</td>
-                            <td>{{ number_format($item['price']) }} تومان</td>
-                            <td>{{ number_format($item['quantity'] * $item['price']) }} تومان</td>
-                            <td>
-                                <form action="{{ route('cart.remove', $id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">حذف</button>
-                                </form>
-                            </td>
-                            <td>
-                                @if (session('cart') && count(session('cart')) > 0)
-                                    <div class="text-end">
-                                        {{-- <button type="submit" class="btn btn-success"
-                                            onclick="location.href='{{ route('checkout') }}';">پرداخت</button> --}}
-                                        <form action="{{ route('checkout') }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-success">پرداخت</button>
-                                        </form>
-                                    </div>
-                                @endif
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>سبد خرید شما خالی است.</p>
-        @endif
-    </div>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <p>سبد خرید شما خالی است.</p>
+    @endif
+</div>

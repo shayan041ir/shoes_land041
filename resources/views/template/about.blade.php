@@ -18,36 +18,36 @@
 
         <main>
             <section>
-                <h2>Our History</h2>
-                <p>Founded in 2010, our mission has always been to provide the best services in the industry...</p>
+                <h2>تاریخچه ما</h2>
+                <p>شرکت ما در سال ۱۳۹۰ با هدف ارائه خدمات نوآورانه و تحول در صنعت تأسیس شد. از آن زمان تاکنون، توانسته‌ایم با جلب اعتماد مشتریان، به یکی از پیشروترین شرکت‌های صنعت خود تبدیل شویم.</p>
             </section>
-
+            
             <section>
-                <h2>Mission & Vision</h2>
-                <p>Our mission is to create innovative solutions that empower businesses and individuals...</p>
+                <h2>ماموریت و چشم‌انداز</h2>
+                <p>ماموریت ما ارائه راهکارهای هوشمند و خلاقانه‌ای است که به رشد و موفقیت کسب‌وکارها و افراد کمک کند. چشم‌انداز ما ایجاد دنیایی است که در آن فناوری و نوآوری محدودیت‌ها را از بین می‌برند.</p>
             </section>
-
+            
             <section>
-                <h2>Our Team</h2>
+                <h2>تیم ما</h2>
                 <div class="team">
                     <div class="team-member">
-                        <img src="team1.jpg" alt="Team Member 1">
-                        <h3>John Doe</h3>
-                        <p>CEO & Founder</p>
+                        <img src="{{ asset('assets/images/team-member/avatar_5941668.png') }}" alt="محمد احمدی" style="width: 100px; height: 100px;">
+                        <h3>محمد احمدی</h3>
+                        <p>مدیرعامل و بنیان‌گذار</p>
                     </div>
                     <div class="team-member">
-                        <img src="team2.jpg" alt="Team Member 2">
-                        <h3>Jane Smith</h3>
-                        <p>Head of Marketing</p>
+                        <img src="{{ asset('assets/images/team-member/businesswomen_5941674.png') }}" alt="سارا رضایی" style="width: 100px; height: 100px;">
+                        <h3>سارا رضایی</h3>
+                        <p>مدیر بازاریابی</p>
                     </div>
                 </div>
             </section>
-
+            
             <section>
-                <h2>Our Achievements</h2>
-                <p>Awarded Best Startup of 2021...</p>
+                <h2>افتخارات ما</h2>
+                <p>ما افتخار می‌کنیم که در سال ۱۴۰۰ به عنوان برترین استارتاپ انتخاب شدیم و بیش از ۱۰۰ پروژه موفق را به بهره‌برداری رسانده‌ایم که تأثیر مثبت چشمگیری در زندگی میلیون‌ها نفر داشته است.</p>
             </section>
-
+            
             <footer>
                 <p>Follow us:</p>
                 <a href="https://facebook.com" target="_blank">Facebook</a> |
