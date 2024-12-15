@@ -137,8 +137,8 @@
         <h2>Admin Panel</h2>
         <ul>
             <li><a href="{{ route('admindashboard') }}"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><a href="{{ route('admindashboard') }}"><i class="fas fa-chart-line"></i> Analytics</a></li>
-            <li><a href="{{ route('home') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            <li><a href="#factor-tab"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            <li><a href="{{ route('home') }}"><i class="fas fa-sign-out-alt"></i> home page</a></li>
         </ul>
     </div>
 

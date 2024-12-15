@@ -168,7 +168,10 @@
     @include('template.header')
 
     <!-- Slider -->
-    @include('template.slider');
+    @include('template.slider')
+    
+    <!-- hero-section -->
+    @include('template.hero-section')
 
     {{-- body --}}
     @include('template.body');

@@ -19,7 +19,9 @@ Route::get('/', function () {
 Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::get('home/products', [ProductController::class, 'insertP'])->name('home.products.filter');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
-
+Route::get('home/hero-section',function () {
+    return view('template.hero-section');
+})->name('hero-section');
 
 Route::get('/about', function () {
     return view('template.about');
