@@ -39,7 +39,7 @@ Route::post('/singup', [SignupController::class, 'store'])->name('singup.store')
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', action: [LoginController::class, 'logout'])->name('logout');
 
 
 Route::get('/Admin.admindashboard', [AdminController::class, 'index'])->name('admindashboard');

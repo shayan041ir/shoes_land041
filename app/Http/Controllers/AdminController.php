@@ -152,16 +152,6 @@ class AdminController extends Controller
     }
 
 
-    // مدیریت اطلاعات سایت
-    public function updateSiteInfo(Request $request)
-    {
-        // کد تغییرات اطلاعات سایت
-        return redirect()->route('admin.dashboard');
-    }
-
-
-
-
 
 
 
