@@ -151,7 +151,6 @@
 
 <div class="container" style="margin-top: 30px;">
     <h2>لیست محصولات</h2>
-
     <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
         <thead>
             <tr style="background-color: #f4f4f4;">

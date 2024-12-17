@@ -80,23 +80,35 @@ Route::post('/Admin.add-category', [CategoryController::class, 'store'])->name('
 
 
 
+
+
 Route::get('/User.userdashboard', [UserController::class, 'index'])->name('user.dashboard');
 Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
+
+
 
 
 Route::post('/cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
+
+
 Route::get('/payment', [CartController::class, 'payment'])->name('payment');
+
 Route::post('/payment/complete', [CartController::class, 'completePayment'])->name('payment.complete');
+
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
+
+
 
 
 Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comments.store');
 Route::get('/comments/pending', [CommentController::class, 'pendingComments'])->name('admin.comments.pending');
 Route::patch('/comments/{id}/approve', [CommentController::class, 'approve'])->name('admin.comments.approve');
 Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('admin.comments.destroy');
+
+
 
 
 Route::post('contact', function () {

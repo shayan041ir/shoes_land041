@@ -17,7 +17,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,6 +93,22 @@
                     class="form-control" required>
                 <div class="invalid-feedback">لطفاً نام کاربری را وارد کنید.</div>
             </div>
+            
+            <div class="mb-3">
+                <label for="email" class="form-label">ایمیل:</label>
+                <input type="email" id="email" name="email" value="{{ auth()->user()->email }}"
+                       class="form-control" required>
+                <div class="invalid-feedback">لطفاً ایمیل معتبر وارد کنید.</div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="address" class="form-label">آدرس:</label>
+                <input type="text" id="address" name="address" value="{{ auth()->user()->address }}"
+                    class="form-control" required>
+                <div class="invalid-feedback">لطفاً آدرس را وارد کنید.</div>
+            </div>
+
 
             <div class="mb-3">
                 <label for="password" class="form-label">رمز عبور جدید:</label>

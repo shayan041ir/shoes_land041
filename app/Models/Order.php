@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+ 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +16,6 @@ class Order extends Model
         'seller_name', // نام فروشنده
         'order_date',   // تاریخ خرید
         'payment_method',
-        'shipping_address',
     ];
 
     /**

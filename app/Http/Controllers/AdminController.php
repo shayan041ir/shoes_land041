@@ -204,6 +204,9 @@ class AdminController extends Controller
     }
 
 
+
+    
+
     public function showOrders()
     {
         $orders = Order::with(['user', 'items.product'])->get();

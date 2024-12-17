@@ -15,20 +15,23 @@ class UserController extends Controller
     public function update(Request $request)
     {
         // اعتبارسنجی اطلاعات ورودی
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'password' => 'nullable|string|min:4|confirmed',
+            'address' => 'nullable|string|max:255',
         ]);
 
         // بازیابی کاربر جاری
         $user = Auth::user();
 
         // به‌روز‌رسانی نام کاربر
-        $user->name = $request->input('name');
-
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->address = $validatedData['address'] ?? $user->address;
         // در صورت وجود رمز عبور جدید، رمز عبور را به‌روز‌رسانی کنید
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->input('password'));
+        if (!empty($validatedData['password'])) {
+            $user->password = Hash::make($validatedData['password']);
         }
 
         // ذخیره تغییرات
