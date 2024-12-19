@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 
 <head>
     <meta charset="UTF-8">
@@ -7,9 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Contact Us</title>
     <link rel="stylesheet" href="{{ asset('assets/css/about-contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
+
+    @include('template.header')
+
     <div class="container">
         <header>
             <h1>Contact Us</h1>
@@ -64,6 +74,9 @@
             </section>
         </main>
     </div>
+
+    @include('template.footer')
+
 </body>
 
 </html>

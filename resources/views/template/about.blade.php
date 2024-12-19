@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 
 <head>
     <meta charset="UTF-8">
@@ -7,9 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>About Us</title>
     <link rel="stylesheet" href="{{ asset('assets/css/about-contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
+
+    @include('template.header')
+
     <div class="container">
         <header>
             <h1>About Us</h1>
@@ -19,35 +29,40 @@
         <main>
             <section>
                 <h2>تاریخچه ما</h2>
-                <p>شرکت ما در سال ۱۳۹۰ با هدف ارائه خدمات نوآورانه و تحول در صنعت تأسیس شد. از آن زمان تاکنون، توانسته‌ایم با جلب اعتماد مشتریان، به یکی از پیشروترین شرکت‌های صنعت خود تبدیل شویم.</p>
+                <p>شرکت ما در سال ۱۳۹۰ با هدف ارائه خدمات نوآورانه و تحول در صنعت تأسیس شد. از آن زمان تاکنون،
+                    توانسته‌ایم با جلب اعتماد مشتریان، به یکی از پیشروترین شرکت‌های صنعت خود تبدیل شویم.</p>
             </section>
-            
+
             <section>
                 <h2>ماموریت و چشم‌انداز</h2>
-                <p>ماموریت ما ارائه راهکارهای هوشمند و خلاقانه‌ای است که به رشد و موفقیت کسب‌وکارها و افراد کمک کند. چشم‌انداز ما ایجاد دنیایی است که در آن فناوری و نوآوری محدودیت‌ها را از بین می‌برند.</p>
+                <p>ماموریت ما ارائه راهکارهای هوشمند و خلاقانه‌ای است که به رشد و موفقیت کسب‌وکارها و افراد کمک کند.
+                    چشم‌انداز ما ایجاد دنیایی است که در آن فناوری و نوآوری محدودیت‌ها را از بین می‌برند.</p>
             </section>
-            
+
             <section>
                 <h2>تیم ما</h2>
                 <div class="team">
                     <div class="team-member">
-                        <img src="{{ asset('assets/images/team-member/avatar_5941668.png') }}" alt="محمد احمدی" style="width: 100px; height: 100px;">
+                        <img src="{{ asset('assets/images/team-member/avatar_5941668.png') }}" alt="محمد احمدی"
+                            style="width: 100px; height: 100px;">
                         <h3>محمد احمدی</h3>
                         <p>مدیرعامل و بنیان‌گذار</p>
                     </div>
                     <div class="team-member">
-                        <img src="{{ asset('assets/images/team-member/businesswomen_5941674.png') }}" alt="سارا رضایی" style="width: 100px; height: 100px;">
+                        <img src="{{ asset('assets/images/team-member/businesswomen_5941674.png') }}" alt="سارا رضایی"
+                            style="width: 100px; height: 100px;">
                         <h3>سارا رضایی</h3>
                         <p>مدیر بازاریابی</p>
                     </div>
                 </div>
             </section>
-            
+
             <section>
                 <h2>افتخارات ما</h2>
-                <p>ما افتخار می‌کنیم که در سال ۱۴۰۰ به عنوان برترین استارتاپ انتخاب شدیم و بیش از ۱۰۰ پروژه موفق را به بهره‌برداری رسانده‌ایم که تأثیر مثبت چشمگیری در زندگی میلیون‌ها نفر داشته است.</p>
+                <p>ما افتخار می‌کنیم که در سال ۱۴۰۰ به عنوان برترین استارتاپ انتخاب شدیم و بیش از ۱۰۰ پروژه موفق را به
+                    بهره‌برداری رسانده‌ایم که تأثیر مثبت چشمگیری در زندگی میلیون‌ها نفر داشته است.</p>
             </section>
-            
+
             <footer>
                 <p>Follow us:</p>
                 <a href="https://facebook.com" target="_blank">Facebook</a> |
@@ -56,6 +71,8 @@
             </footer>
         </main>
     </div>
+
+    @include('template.footer')
 </body>
 
 </html>

@@ -117,8 +117,8 @@
                 <div class="item-link col-6 col-md-4 col-lg-3">
                     <h4 class="title-main">منوی اصلی</h4>
                     <ul class="list-link">
-                        <li><a href="#">درباره ما</a></li>
-                        <li><a href="#">تماس با ما</a></li>
+                        <li><a href="{{ route('about') }}">درباره ما</a></li>
+                        <li><a href="{{ route('contact') }}">تماس با ما</a></li>
                         <li><a href="#">قوانین و مقررات</a></li>
                     </ul>
                 </div>

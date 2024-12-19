@@ -18,7 +18,7 @@
                 <button type="submit">Logout</button>
             </form>
         @elseif (Auth::guard('web')->check())
-            <li><a href="{{ route('cart.view') }}">card</a></li>
+            <li><a href="{{ route('cart.view') }}">سبد خرید</a></li>
             <li><a href="{{ route('user.dashboard') }}">داشبورد کاربر</a></li>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
