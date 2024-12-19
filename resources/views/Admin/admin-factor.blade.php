@@ -1,7 +1,3 @@
-@php
-
-@endphp
-
 
 <br>
 <div class="add-admin">

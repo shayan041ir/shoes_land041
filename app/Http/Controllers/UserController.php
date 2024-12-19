@@ -20,6 +20,7 @@ class UserController extends Controller
             'email' => 'required|email|max:255',
             'password' => 'nullable|string|min:4|confirmed',
             'address' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|regex:/^\d{10,12}$/',
         ]);
 
         // بازیابی کاربر جاری
@@ -29,6 +30,8 @@ class UserController extends Controller
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->address = $validatedData['address'] ?? $user->address;
+        $user->phone = $validatedData['phone'] ?? $user->phone;
+
         // در صورت وجود رمز عبور جدید، رمز عبور را به‌روز‌رسانی کنید
         if (!empty($validatedData['password'])) {
             $user->password = Hash::make($validatedData['password']);

@@ -21,6 +21,8 @@ Route::get('/', function () {
 Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::get('home/products', [ProductController::class, 'insertP'])->name('home.products.filter');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/home/products/filter', [ProductController::class, 'filterProducts'])->name('home.products.filter');
+
 Route::get('home/brands', function () {
     return view('template.brands');
 })->name('brands');
@@ -71,7 +73,6 @@ Route::delete('admin/brands/{brand}', [BrandController::class, 'destroy'])->name
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/Admin.add-product', [ProductController::class, 'store'])->name('products.store');
 Route::delete('/Admin.admindashboard/{id}', [ProductController::class, 'destroy'])->name('product.delete');
-Route::get('/home/products/filter', [ProductController::class, 'filterProducts'])->name('home.products.filter');
 
 
 Route::get('/Admin.add-category', [CategoryController::class, 'create'])->name('categories.create');
