@@ -125,6 +125,9 @@ class AdminController extends Controller
     public function updateProduct(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        if (!$product) {
+            return redirect()->back()->withErrors(['msg' => 'محصولی با این شناسه یافت نشد.']);
+        }
 
         // اعتبارسنجی ورودی‌ها
         $request->validate([

@@ -210,6 +210,7 @@
         </ul>
     @endif
 
+
     {{-- فرم ویرایش محصول --}}
     <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
