@@ -122,24 +122,25 @@ class AdminController extends Controller
     }
 
 
-    public function updateProduct(Request $request, $id)
+    public function updateProduct(Request $request)
     {
-        $product = Product::findOrFail($id);
+        // جستجوی محصول بر اساس نام
+        $product = Product::where('name', $request->input('name'))->first();
         if (!$product) {
-            return redirect()->back()->withErrors(['msg' => 'محصولی با این شناسه یافت نشد.']);
+            return redirect()->back()->withErrors(['msg' => 'محصولی با این نام یافت نشد.']);
         }
-
+    
         // اعتبارسنجی ورودی‌ها
         $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
+            'price' => 'nullable|numeric|min:0',
+            'stock' => 'nullable|integer|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'color' => 'nullable|string|max:100',
             'material' => 'nullable|string|max:100',
             'brand' => 'nullable|string|max:100',
         ]);
-
+    
         // آپلود تصویر (در صورت وجود)
         if ($request->hasFile('image')) {
             if ($product->image) {
@@ -147,13 +148,20 @@ class AdminController extends Controller
             }
             $product->image = $request->file('image')->store('products', 'public');
         }
-
-        // به‌روزرسانی فیلدها
-        $product->update($request->except('image'));
-
+    
+        // به‌روزرسانی فیلدهایی که تغییر کرده‌اند
+        $data = $request->only(['description', 'price', 'stock', 'color', 'material', 'brand']);
+        foreach ($data as $key => $value) {
+            if ($value !== null) {
+                $product->$key = $value;
+            }
+        }
+    
+        $product->save();
+    
         return redirect()->route('admindashboard')->with('success', 'محصول با موفقیت به‌روزرسانی شد!');
     }
-
+    
 
 
 

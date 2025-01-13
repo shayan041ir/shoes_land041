@@ -106,7 +106,7 @@
                 </div>
                 <div class="links-shoesland col-12 col-md-6 col-lg-3">
                     <a href="{{ route('contact') }}" class="btn-link btn-support">پشتیبانی</a>
-                    <a href="tel:04135538371"  class="btn-link btn-support">تماس با ما</a>
+                    <a href="{{ route('contact') }}"  class="btn-link btn-support">تماس با ما</a>
                 </div>
             </div>
         </section>
@@ -125,8 +125,8 @@
                 <div class="item-link col-6 col-md-4 col-lg-3">
                     <h4 class="title-main">خدمات ما</h4>
                     <ul class="list-link">
-                        <li><a href="#">تخفیفات ویژه</a></li>
-                        <li><a href="#">جدول سایزبندی</a></li>
+                        <li><a href="#">پشتیبانی ۲۴/۷</a></li>
+                        <li><a href="#">پرداخت امن</a></li>
                         <li><a href="#">سفارشات عمده</a></li>
                     </ul>
                 </div>

@@ -212,62 +212,60 @@
 
 
     {{-- فرم ویرایش محصول --}}
-    <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div style="margin-bottom: 15px;">
             <label for="name">نام محصول:</label><br>
-            <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}" required>
+            <input type="text" id="name" name="name">
         </div>
 
         <div style="margin-bottom: 15px;">
             <label for="description">توضیحات:</label><br>
-            <textarea id="description" name="description" required>{{ old('description', $product->description) }}</textarea>
+            <textarea id="description" name="description"></textarea>
         </div>
 
         <div style="margin-bottom: 15px;">
             <label for="price">قیمت:</label><br>
-            <input type="number" step="0.01" id="price" name="price"
-                value="{{ old('price', $product->price) }}" required>
+            <input type="number" step="0.01" id="price" name="price">
         </div>
 
         <div style="margin-bottom: 15px;">
             <label for="stock">موجودی:</label><br>
-            <input type="number" id="stock" name="stock" value="{{ old('stock', $product->stock) }}"
-                required>
+            <input type="number" id="stock" name="stock" >
         </div>
 
         <div style="margin-bottom: 15px;">
             <label for="color">رنگ:</label><br>
-            <input type="text" id="color" name="color" value="{{ old('color', $product->color) }}">
+            <input type="text" id="color" name="color">
         </div>
 
         <div style="margin-bottom: 15px;">
             <label for="material">جنس:</label><br>
-            <input type="text" id="material" name="material" value="{{ old('material', $product->material) }}">
+            <input type="text" id="material" name="material">
         </div>
 
         <div style="margin-bottom: 15px;">
             <label for="brand">برند:</label><br>
-            <input type="text" id="brand" name="brand" value="{{ old('brand', $product->brand) }}">
+            <input type="text" id="brand" name="brand">
         </div>
 
         <div style="margin-bottom: 15px;">
             <label for="image">تصویر جدید:</label><br>
             <input type="file" id="image" name="image" accept="image/*">
             <br>
-            @if ($product->image)
+            {{-- @if ($product->image)
                 <p>تصویر فعلی:</p>
                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="100">
-            @endif
+            @endif --}}
         </div>
 
         <div style="margin-bottom: 15px;">
             <label for="categories">دسته‌بندی‌ها:</label><br>
             <select id="categories" name="categories[]" multiple>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}"
+                    <option 
                         {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
                         {{ $category->name }}
                     </option>
