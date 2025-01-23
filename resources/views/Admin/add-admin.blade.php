@@ -15,9 +15,9 @@
                 </ul>
             </div>
         @endif
-        <input type="text" name="name" placeholder="name">
-        <input type="email" name="email" placeholder="email">
-        <input type="password" name="password" placeholder="password">
+        <input type="text" name="name" placeholder="نام">
+        <input type="email" name="email" placeholder="ایمیل">
+        <input type="password" name="password" placeholder="رمز عبور">
         <button type="submit" class="btn btn-success">افزودن</button>
 
     </form>
@@ -27,9 +27,11 @@
         @csrf
         @method('PUT')
 
-        <input type="text" id="name" name="name" placeholder="name" required>
-        <input type="password" id="password" name="password" placeholder="email">
-        <input type="password" id="password_confirmation"placeholder="password" name="password_confirmation">
+        <input type="text" id="name" name="name" placeholder="نام" required>
+        <input type="email" id="email" name="email" placeholder="ایمیل">
+        <input type="password" id="password" name="password" placeholder="رمز عبور جدید">
+        <input type="password" id="password_confirmation" name="password_confirmation"
+            placeholder="تکرار رمز عبور جدید">
         <button type="submit" class="btn btn-success">ویرایش</button>
 
     </form>

@@ -62,6 +62,13 @@
             font-size: 0.9rem;
             color: #6c757d;
         }
+
+        /* استایل جدید برای فیلد شماره کارت */
+        #card-number {
+            direction: ltr; /* متن را چپ به راست نمایش می‌دهد */
+            text-align: left; /* متن را به چپ تراز می‌کند */
+            font-family: 'Courier New', Courier, monospace; /* فونت مناسب برای اعداد */
+        }
     </style>
 </head>
 
@@ -70,7 +77,6 @@
         <h1 class="payment-header">درگاه پرداخت ملی</h1>
         <p>نام کاربر: <strong>{{ $userName }}</strong></p>
         <p>مجموع مبلغ: <strong>{{ number_format($total_price) }} تومان</strong></p>
-
 
         <form action="{{ route('payment.complete') }}" method="POST">
             @csrf
@@ -114,16 +120,14 @@
             <small class="text-muted">پرداخت شما در محیطی امن انجام خواهد شد.</small>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         document.getElementById('card-number').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s+/g, '').replace(/[^\d]/g, '');
-            let formatted = value.match(/.{1,4}/g)?.join(' ') || '';
-            e.target.value = formatted;
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^\d]/g, ''); // حذف فاصله و کاراکترهای غیرعددی
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || ''; // فرمت‌دهی به صورت 4 رقم 4 رقم
+            e.target.value = formatted; // قرار دادن مقدار فرمت‌شده در فیلد
         });
     </script>
-
 </body>
 
 </html>

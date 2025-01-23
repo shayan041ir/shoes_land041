@@ -47,6 +47,7 @@ class AdminController extends Controller
         // اعتبارسنجی اطلاعات ورودی
         $request->validate([
             'name' => 'required|string|max:255',
+            'email'=> 'nullable|email|unique:admins,email',
             'password' => 'nullable|string|min:4|confirmed',
         ]);
 
@@ -63,6 +64,15 @@ class AdminController extends Controller
             $admin->password = Hash::make($request->input('password'));
         }
 
+    // در صورت وجود ایمیل جدید، بررسی کنید که تکراری نباشد
+    if ($request->filled('email')) {
+        $existingAdmin = Admin::where('email', $request->input('email'))->first();
+        if ($existingAdmin && $existingAdmin->id !== $admin->id) {
+            return redirect()->back()->withErrors(['email' => 'این ایمیل از قبل وجود دارد.']);
+        }
+        $admin->email = $request->input('email');
+    }
+        
         // ذخیره تغییرات
         $admin->save();
 
